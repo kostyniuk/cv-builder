@@ -1,13 +1,41 @@
 "use client"
 
-import { useMemo, useState } from "react"
-import { Download, RotateCcw } from "lucide-react"
+import { useState } from "react"
+import { Download, Minus, Plus, RotateCcw } from "lucide-react"
 
+import { PortfolioQrCode } from "@/components/portfolio-qr-code"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Textarea } from "@/components/ui/textarea"
+import { normalizeUrl } from "@/lib/url"
+
+type ExperienceItem = {
+  company: string
+  title: string
+  date: string
+  bullets: string
+}
+
+type ProjectItem = {
+  name: string
+  stack: string
+  description: string
+}
+
+type SocialLink = {
+  label: string
+  url: string
+}
+
+type SectionKey =
+  | "awards"
+  | "taste"
+  | "education"
+  | "portfolio"
+  | "skills"
+  | "botanical"
 
 type CvData = {
   name: string
@@ -16,109 +44,194 @@ type CvData = {
   phone: string
   location: string
   website: string
-  profile: string
-  experience: string
-  projects: string
+  socialLinks: SocialLink[]
+  experience: ExperienceItem[]
+  projects: ProjectItem[]
   education: string
   awards: string
   skills: string
+  taste: string
+  sections: Record<SectionKey, boolean>
+}
+
+const blankExperience: ExperienceItem = {
+  company: "New Company",
+  title: "Role title",
+  date: "2026 - Present",
+  bullets: "Describe one measurable contribution.",
+}
+
+const blankProject: ProjectItem = {
+  name: "New Project",
+  stack: "Tools, stack",
+  description: "Short impact-focused project description.",
 }
 
 const initialData: CvData = {
-  name: "ben",
-  role: "Digital Systems Designer",
-  email: "austin@example.com",
-  phone: "(12) 335-5799",
-  location: "Austin, X United States",
-  website: "helloben.designs",
-  profile: "online profiles / apexLabs\nonline profiles / designs",
-  experience:
-    "Neural Dynamics Corp. | Economic job title | Jan 2024 - Present\nLed a team of 5 engineers designing and implementing microservices architecture using Kubernetes and Docker, improving system throughput by 40%.\nIntegrated a complex machine learning model into the core platform, optimizing data processing efficiency by 60%.\nManaged AWS cloud infrastructure deployment for 12+ critical service components.\n\nApex Labs | Realistic Job Title | Mar 2022 - Jan 2024\nContributed to decentralized identity protocol development and microservices architecture operations.\nManaged cybersecurity platforms and scalable service deployments for 60% faster handoffs.\n\nVertex Digital | Realistic job | Aug 2020 - Mar 2022\nBuilt developer tools and internal platform workflows for high-throughput product teams.",
-  projects:
-    "AI-Powered Market Predictor | Python, TensorFlow | Built a forecasting workflow for real-time data streams and reduced error by 20%.\nDecentralized Data Exchange | Solidity, cryptography | Created a secure data sharing platform with verifiable permissions.\nOptimized Core Transactions | React, Node.js | Refactored processing and optimization work on a high-throughput platform.",
+  name: "Alex Kostyniuk",
+  role: "Software Engineer",
+  email: "kostyniukengineering@gmail.com",
+  phone: "(12) 345-6787",
+  location: "Stockholm, Sweden",
+  website: "a13x.space",
+  socialLinks: [
+    { label: "ApexLabs", url: "https://apexlabs.example.com/alex" },
+    { label: "Designs", url: "https://helloben.designs" },
+  ],
+  experience: [
+    {
+      company: "Neural Dynamics Corp.",
+      title: "Economic job title",
+      date: "Jan 2024 - Present",
+      bullets:
+        "Led a team of 5 engineers designing and implementing microservices architecture using Kubernetes and Docker, improving system throughput by 40%.\nIntegrated a complex machine learning model into the core platform, optimizing data processing efficiency by 60%.\nManaged AWS cloud infrastructure deployment for 12+ critical service components.",
+    },
+    {
+      company: "Apex Labs",
+      title: "Realistic Job Title",
+      date: "Mar 2022 - Jan 2024",
+      bullets:
+        "Contributed to decentralized identity protocol development and microservices architecture operations.\nManaged cybersecurity platforms and scalable service deployments for 60% faster handoffs.",
+    },
+    {
+      company: "Vertex Digital",
+      title: "Realistic job",
+      date: "Aug 2020 - Mar 2022",
+      bullets:
+        "Built developer tools and internal platform workflows for high-throughput product teams.",
+    },
+  ],
+  projects: [
+    {
+      name: "AI-Powered Market Predictor",
+      stack: "Python, TensorFlow",
+      description:
+        "Built a forecasting workflow for real-time data streams and reduced error by 20%.",
+    },
+    {
+      name: "Decentralized Data Exchange",
+      stack: "Solidity, cryptography",
+      description:
+        "Created a secure data sharing platform with verifiable permissions.",
+    },
+    {
+      name: "Optimized Core Transactions",
+      stack: "React, Node.js",
+      description:
+        "Refactored processing and optimization work on a high-throughput platform.",
+    },
+  ],
   education:
-    "BSc. Computer Science\nUC Berkeley\n\nAWS Certified DevOps Engineer\nKubernetes Certified Administrator",
+    "BSc. Computer Science\nUC Berkeley\nAWS Certified DevOps Engineer\nKubernetes Certified Administrator",
   awards:
     "Google Developer Expert (AI/ML) 2025\nApex Labs Tech Innovation Award 2025\nApex Labs Tech Innovation Award 2023",
   skills:
-    "Languages: Python, Go, Rust, TypeScript\nFrameworks: React, Node.js, TensorFlow, Docker, K8s\nTools: AWS, Git, Figma\nMethodology: Agile, CI/CD",
+    "Languages: Python, Go, Rust, TypeScript\nFrameworks: React, Node.js, TensorFlow, Docker, K8s\nTools: AWS, Git, Figma",
+  taste:
+    "Functional programming, distributed systems, quiet interfaces, developer tools, technical writing",
+  sections: {
+    awards: true,
+    taste: true,
+    education: true,
+    portfolio: true,
+    skills: true,
+    botanical: true,
+  },
 }
 
-const fieldGroups: Array<{
-  title: string
-  fields: Array<keyof CvData>
-}> = [
-  { title: "Identity", fields: ["name", "role", "email", "phone"] },
-  { title: "Contact", fields: ["location", "website", "profile"] },
-  { title: "Career", fields: ["experience", "projects"] },
-  { title: "Signal", fields: ["education", "awards", "skills"] },
-]
-
-const labels: Record<keyof CvData, string> = {
-  name: "Name",
-  role: "Role",
-  email: "Email",
-  phone: "Phone",
-  location: "Location",
-  website: "Website",
-  profile: "Profile links",
-  experience: "Experience",
-  projects: "Projects",
-  education: "Education",
+const sectionLabels: Record<SectionKey, string> = {
   awards: "Awards",
+  taste: "Taste",
+  education: "Education",
+  portfolio: "QR",
   skills: "Skills",
+  botanical: "Botanical",
 }
 
-function parseBlocks(value: string) {
-  return value
-    .split(/\n\s*\n/)
-    .map((block) => block.trim())
-    .filter(Boolean)
-    .map((block) =>
-      block
-        .split("\n")
-        .map((line) => line.trim())
-        .filter(Boolean)
-    )
-}
-
-function parseRows(value: string) {
+function lines(value: string) {
   return value
     .split("\n")
     .map((line) => line.trim())
     .filter(Boolean)
-    .map((line) => [line])
-}
-
-function splitLine(value: string, fallback = "") {
-  return (
-    value
-      .split("\n")
-      .map((line) => line.trim())
-      .filter(Boolean)
-      .at(0) ?? fallback
-  )
 }
 
 export default function Page() {
   const [data, setData] = useState<CvData>(initialData)
 
-  const experience = useMemo(
-    () => parseBlocks(data.experience),
-    [data.experience]
-  )
-  const projects = useMemo(() => parseRows(data.projects), [data.projects])
-  const education = useMemo(() => parseBlocks(data.education), [data.education])
-  const awards = useMemo(() => parseBlocks(data.awards), [data.awards])
-  const skills = useMemo(() => parseBlocks(data.skills), [data.skills])
+  const middleSections = [
+    data.sections.awards ? "awards" : null,
+    data.sections.taste ? "taste" : null,
+  ].filter(Boolean) as Array<"awards" | "taste">
 
-  function updateField(field: keyof CvData, value: string) {
+  const footerSections = [
+    data.sections.education ? "education" : null,
+    data.sections.portfolio ? "portfolio" : null,
+    data.sections.skills ? "skills" : null,
+    data.sections.botanical ? "botanical" : null,
+  ].filter(Boolean) as Array<"education" | "portfolio" | "skills" | "botanical">
+
+  function updateField(
+    field: keyof Omit<
+      CvData,
+      "experience" | "projects" | "sections" | "socialLinks"
+    >,
+    value: string
+  ) {
     setData((current) => ({ ...current, [field]: value }))
+  }
+
+  function updateSocialLink(
+    index: number,
+    field: keyof SocialLink,
+    value: string
+  ) {
+    setData((current) => ({
+      ...current,
+      socialLinks: current.socialLinks.map((item, itemIndex) =>
+        itemIndex === index ? { ...item, [field]: value } : item
+      ),
+    }))
+  }
+
+  function updateExperience(
+    index: number,
+    field: keyof ExperienceItem,
+    value: string
+  ) {
+    setData((current) => ({
+      ...current,
+      experience: current.experience.map((item, itemIndex) =>
+        itemIndex === index ? { ...item, [field]: value } : item
+      ),
+    }))
+  }
+
+  function updateProject(
+    index: number,
+    field: keyof ProjectItem,
+    value: string
+  ) {
+    setData((current) => ({
+      ...current,
+      projects: current.projects.map((item, itemIndex) =>
+        itemIndex === index ? { ...item, [field]: value } : item
+      ),
+    }))
+  }
+
+  function toggleSection(section: SectionKey) {
+    setData((current) => ({
+      ...current,
+      sections: {
+        ...current.sections,
+        [section]: !current.sections[section],
+      },
+    }))
   }
 
   return (
     <main className="cv-app min-h-svh px-4 py-5 text-[#111] sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-[1500px] gap-5 xl:grid-cols-[440px_minmax(0,1fr)]">
+      <div className="mx-auto grid max-w-[1720px] gap-5 xl:grid-cols-[640px_minmax(0,1fr)]">
         <section className="no-print cv-panel border border-black/15 bg-[#f4f1e8]/90 p-4 shadow-[8px_8px_0_rgba(15,15,15,0.08)] backdrop-blur md:p-5">
           <div className="flex items-start justify-between gap-3">
             <div>
@@ -144,53 +257,310 @@ export default function Page() {
           <Separator className="my-4 bg-black/20" />
 
           <div className="grid gap-5">
-            {fieldGroups.map((group) => (
-              <fieldset key={group.title} className="grid gap-3">
-                <legend className="mb-1 font-mono text-[11px] tracking-[0.18em] uppercase">
-                  {group.title}
-                </legend>
-                {group.fields.map((field) => {
-                  const multiline = [
-                    "profile",
-                    "experience",
-                    "projects",
-                    "education",
-                    "awards",
-                    "skills",
-                  ].includes(field)
+            <FormBlock title="Identity">
+              <TextField
+                label="Name"
+                value={data.name}
+                onChange={(value) => updateField("name", value)}
+              />
+              <TextField
+                label="Role"
+                value={data.role}
+                onChange={(value) => updateField("role", value)}
+              />
+              <TextField
+                label="Email"
+                value={data.email}
+                onChange={(value) => updateField("email", value)}
+              />
+              <TextField
+                label="Phone"
+                value={data.phone}
+                onChange={(value) => updateField("phone", value)}
+              />
+            </FormBlock>
 
-                  return (
-                    <div key={field} className="grid gap-1.5">
-                      <Label
-                        htmlFor={field}
-                        className="font-mono text-[11px] tracking-[0.12em] text-black/60 uppercase"
+            <FormBlock title="Contact">
+              <TextField
+                label="Location"
+                value={data.location}
+                onChange={(value) => updateField("location", value)}
+              />
+              <TextField
+                label="Website"
+                value={data.website}
+                onChange={(value) => updateField("website", value)}
+              />
+            </FormBlock>
+
+            <section className="grid gap-3">
+              <div className="flex items-center justify-between gap-3">
+                <FormTitle>Social Links</FormTitle>
+                <Button
+                  type="button"
+                  size="xs"
+                  variant="outline"
+                  className="rounded-none border-black/25 bg-[#fbfaf4] font-mono uppercase"
+                  onClick={() =>
+                    setData((current) => ({
+                      ...current,
+                      socialLinks: [
+                        ...current.socialLinks,
+                        { label: "Profile", url: "https://" },
+                      ],
+                    }))
+                  }
+                >
+                  <Plus />
+                  Add
+                </Button>
+              </div>
+              <div className="grid grid-cols-1 gap-3">
+                {data.socialLinks.map((item, index) => (
+                  <div
+                    key={`${item.label}-${index}`}
+                    className="form-card grid gap-3"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-[11px] text-[#1f32b7]">
+                        Link {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <Button
+                        type="button"
+                        size="icon-xs"
+                        variant="outline"
+                        aria-label="Remove social link"
+                        disabled={data.socialLinks.length === 1}
+                        className="rounded-none border-black/25 bg-[#fbfaf4]"
+                        onClick={() =>
+                          setData((current) => ({
+                            ...current,
+                            socialLinks: current.socialLinks.filter(
+                              (_, itemIndex) => itemIndex !== index
+                            ),
+                          }))
+                        }
                       >
-                        {labels[field]}
-                      </Label>
-                      {multiline ? (
-                        <Textarea
-                          id={field}
-                          value={data[field]}
-                          onChange={(event) =>
-                            updateField(field, event.target.value)
-                          }
-                          className="min-h-24 resize-y rounded-none border-black/25 bg-[#fffdf5]/75 font-mono text-xs leading-relaxed focus-visible:ring-[#1f32b7]/25"
-                        />
-                      ) : (
-                        <Input
-                          id={field}
-                          value={data[field]}
-                          onChange={(event) =>
-                            updateField(field, event.target.value)
-                          }
-                          className="rounded-none border-black/25 bg-[#fffdf5]/75 font-mono text-xs focus-visible:ring-[#1f32b7]/25"
-                        />
-                      )}
+                        <Minus />
+                      </Button>
                     </div>
-                  )
-                })}
-              </fieldset>
-            ))}
+                    <TextField
+                      label="Label"
+                      value={item.label}
+                      onChange={(value) =>
+                        updateSocialLink(index, "label", value)
+                      }
+                    />
+                    <TextField
+                      label="URL"
+                      value={item.url}
+                      onChange={(value) =>
+                        updateSocialLink(index, "url", value)
+                      }
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="grid gap-3">
+              <div className="flex items-center justify-between gap-3">
+                <FormTitle>Experience</FormTitle>
+                <Button
+                  type="button"
+                  size="xs"
+                  variant="outline"
+                  className="rounded-none border-black/25 bg-[#fbfaf4] font-mono uppercase"
+                  onClick={() =>
+                    setData((current) => ({
+                      ...current,
+                      experience: [...current.experience, blankExperience],
+                    }))
+                  }
+                >
+                  <Plus />
+                  Add
+                </Button>
+              </div>
+              {data.experience.map((item, index) => (
+                <div
+                  key={`${item.company}-${index}`}
+                  className="form-card grid gap-3"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[11px] text-[#1f32b7]">
+                      Position {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <Button
+                      type="button"
+                      size="icon-xs"
+                      variant="outline"
+                      aria-label="Remove position"
+                      disabled={data.experience.length === 1}
+                      className="rounded-none border-black/25 bg-[#fbfaf4]"
+                      onClick={() =>
+                        setData((current) => ({
+                          ...current,
+                          experience: current.experience.filter(
+                            (_, itemIndex) => itemIndex !== index
+                          ),
+                        }))
+                      }
+                    >
+                      <Minus />
+                    </Button>
+                  </div>
+                  <div className="grid gap-3 md:grid-cols-[1fr_1fr_150px]">
+                    <TextField
+                      label="Company"
+                      value={item.company}
+                      onChange={(value) =>
+                        updateExperience(index, "company", value)
+                      }
+                    />
+                    <TextField
+                      label="Title"
+                      value={item.title}
+                      onChange={(value) =>
+                        updateExperience(index, "title", value)
+                      }
+                    />
+                    <TextField
+                      label="Date"
+                      value={item.date}
+                      onChange={(value) =>
+                        updateExperience(index, "date", value)
+                      }
+                    />
+                  </div>
+                  <TextField
+                    label="Bullets"
+                    value={item.bullets}
+                    onChange={(value) =>
+                      updateExperience(index, "bullets", value)
+                    }
+                    multiline
+                  />
+                </div>
+              ))}
+            </section>
+
+            <section className="grid gap-3">
+              <div className="flex items-center justify-between gap-3">
+                <FormTitle>Projects</FormTitle>
+                <Button
+                  type="button"
+                  size="xs"
+                  variant="outline"
+                  className="rounded-none border-black/25 bg-[#fbfaf4] font-mono uppercase"
+                  onClick={() =>
+                    setData((current) => ({
+                      ...current,
+                      projects: [...current.projects, blankProject],
+                    }))
+                  }
+                >
+                  <Plus />
+                  Add
+                </Button>
+              </div>
+              {data.projects.map((item, index) => (
+                <div
+                  key={`${item.name}-${index}`}
+                  className="form-card grid gap-3"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[11px] text-[#1f32b7]">
+                      Project {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <Button
+                      type="button"
+                      size="icon-xs"
+                      variant="outline"
+                      aria-label="Remove project"
+                      disabled={data.projects.length === 1}
+                      className="rounded-none border-black/25 bg-[#fbfaf4]"
+                      onClick={() =>
+                        setData((current) => ({
+                          ...current,
+                          projects: current.projects.filter(
+                            (_, itemIndex) => itemIndex !== index
+                          ),
+                        }))
+                      }
+                    >
+                      <Minus />
+                    </Button>
+                  </div>
+                  <div className="grid gap-3 md:grid-cols-[1fr_1fr]">
+                    <TextField
+                      label="Name"
+                      value={item.name}
+                      onChange={(value) => updateProject(index, "name", value)}
+                    />
+                    <TextField
+                      label="Stack"
+                      value={item.stack}
+                      onChange={(value) => updateProject(index, "stack", value)}
+                    />
+                  </div>
+                  <TextField
+                    label="Description"
+                    value={item.description}
+                    onChange={(value) =>
+                      updateProject(index, "description", value)
+                    }
+                    multiline
+                  />
+                </div>
+              ))}
+            </section>
+
+            <section className="grid gap-3">
+              <FormTitle>Sections</FormTitle>
+              <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
+                {(Object.keys(sectionLabels) as SectionKey[]).map((section) => (
+                  <Button
+                    key={section}
+                    type="button"
+                    size="sm"
+                    variant={data.sections[section] ? "default" : "outline"}
+                    className="rounded-none font-mono text-[10px] uppercase"
+                    onClick={() => toggleSection(section)}
+                  >
+                    {data.sections[section] ? "Remove" : "Add"}{" "}
+                    {sectionLabels[section]}
+                  </Button>
+                ))}
+              </div>
+            </section>
+
+            <FormBlock title="Signal">
+              <TextField
+                label="Education"
+                value={data.education}
+                onChange={(value) => updateField("education", value)}
+                multiline
+              />
+              <TextField
+                label="Awards"
+                value={data.awards}
+                onChange={(value) => updateField("awards", value)}
+                multiline
+              />
+              <TextField
+                label="Skills"
+                value={data.skills}
+                onChange={(value) => updateField("skills", value)}
+                multiline
+              />
+              <TextField
+                label="Technical taste"
+                value={data.taste}
+                onChange={(value) => updateField("taste", value)}
+                multiline
+              />
+            </FormBlock>
           </div>
 
           <Button
@@ -202,34 +572,37 @@ export default function Page() {
           </Button>
         </section>
 
-        <section className="print-area flex min-w-0 justify-center">
-          <article className="cv-sheet relative w-full max-w-[930px] overflow-hidden border border-black/20 bg-[#fbfaf4] p-7 text-[#111] shadow-[0_20px_80px_rgba(12,10,3,0.18)] sm:p-9">
+        <section className="print-area flex min-w-0 justify-center self-start">
+          <article className="cv-sheet relative w-full max-w-[930px] overflow-hidden border border-black/20 bg-[#fbfaf4] p-8 text-[#111] shadow-[0_20px_80px_rgba(12,10,3,0.18)] sm:p-8">
             <div className="corner corner-tl" />
             <div className="corner corner-tr" />
             <div className="corner corner-bl" />
             <div className="corner corner-br" />
 
-            <header className="cv-header grid gap-5 border-b border-black/25 pb-5">
+            <header className="cv-header grid gap-5 border-b border-black/25 pb-2">
               <div>
-                <div className="flex items-center gap-5 font-mono text-[10px] tracking-[0.18em] uppercase">
+                {/* <div className="flex items-center gap-5 font-mono text-[10px] tracking-[0.18em] uppercase">
                   <span className="size-3 bg-[#1f32b7]" />
                   <span>Digital Systems</span>
                   <span>Design Solutions</span>
+                </div> */}
+                <h2 className="cv-name leading-[0.82] font-black tracking-[-0.04em]">
+                  {data.name || "alex"}
+                </h2>
+                <div className="inline space-x-2">
+                  <p className="inline font-mono text-xs tracking-[0.12em] uppercase">
+                    {(data.role || "Digital Systems Designer") + ","}
+                  </p>
+                  <a
+                    href={normalizeUrl(data.website)}
+                    className="inline font-mono text-[11px] tracking-[0.1em] text-[#1f32b7] uppercase"
+                  >
+                    {data.website}
+                  </a>
                 </div>
-                <div className="mt-3 flex items-end gap-3">
-                  <h2 className="cv-name leading-[0.82] font-black tracking-[-0.04em] break-all">
-                    {data.name || "ben"}
-                  </h2>
-                  <span className="mb-3 text-5xl font-light text-black/14">
-                    &reg;
-                  </span>
-                </div>
-                <p className="mt-3 font-mono text-xs tracking-[0.12em] uppercase">
-                  {data.role || "Digital Systems Designer"}
-                </p>
               </div>
 
-              <div className="grid grid-cols-[1fr_54px] gap-5 self-end font-mono text-[11px] leading-tight uppercase">
+              <div className="cv-contact-grid grid gap-5 self-center font-mono text-[11px] leading-tight uppercase">
                 <div className="relative border-l border-black/25 py-2 pl-5">
                   <p>
                     <b>Phone:</b> <span>{data.phone}</span>
@@ -238,147 +611,198 @@ export default function Page() {
                     <b>Email:</b> <span>{data.email}</span>
                   </p>
                   <p>
-                    <b>Site:</b> <span>{data.website}</span>
+                    <b>Location:</b> <span>{data.location}</span>
                   </p>
-                  <p>{data.location}</p>
-                  {data.profile.split("\n").map((line) => (
-                    <p key={line}>{line}</p>
+                </div>
+                <div className="relative border-l border-black/25 py-2 pl-5">
+                  {data.socialLinks.map((link) => (
+                    <a
+                      key={`${link.label}-${link.url}`}
+                      href={normalizeUrl(link.url)}
+                      className="block underline-offset-2 hover:underline"
+                    >
+                      online profiles / {link.label}
+                    </a>
                   ))}
                 </div>
-                <div className="barcode" aria-hidden="true" />
               </div>
             </header>
 
             <section className="cv-section">
               <SectionTitle>Experience</SectionTitle>
               <div className="cv-timeline relative grid gap-5 pl-44">
-                <div className="absolute top-3 left-32 h-[calc(100%-20px)] w-px bg-black/25" />
-                {experience.map((item, index) => {
-                  const [
-                    company = "Company",
-                    detail = "",
-                    date = "Present",
-                    ...bullets
-                  ] = item[0].split("|").map((part) => part.trim())
-                  const body = bullets.length ? bullets : item.slice(1)
-
-                  return (
-                    <div key={`${company}-${index}`} className="relative block">
-                      <div className="absolute -left-44 w-28 font-mono text-[11px]">
-                        {date}
-                      </div>
-                      <div className="timeline-node" />
-                      <h3 className="font-mono text-sm font-bold">
-                        {company}
-                        {detail ? (
-                          <span className="font-normal"> | {detail}</span>
-                        ) : null}
-                      </h3>
-                      <ul className="mt-1 list-disc space-y-1 pl-5 font-mono text-[11px] leading-tight">
-                        {body.map((line) => (
-                          <li key={line}>{line}</li>
-                        ))}
-                      </ul>
+                <div className="timeline-line absolute top-3 h-[calc(100%-20px)] w-px bg-black/25" />
+                {data.experience.map((item, index) => (
+                  <div
+                    key={`${item.company}-${index}`}
+                    className="relative block"
+                  >
+                    <div className="absolute -left-44 w-28 font-mono text-[11px]">
+                      {item.date}
                     </div>
-                  )
-                })}
+                    <div className="timeline-node" />
+                    <h3 className="font-mono text-sm font-bold">
+                      {item.company}
+                      {item.title ? (
+                        <span className="font-normal"> | {item.title}</span>
+                      ) : null}
+                    </h3>
+                    <ul className="mt-1 list-disc space-y-1 pl-5 font-mono text-[11px] leading-tight">
+                      {lines(item.bullets).map((line) => (
+                        <li key={line}>{line}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
             </section>
 
             <section className="cv-section">
               <SectionTitle>Projects</SectionTitle>
               <div className="divide-y divide-black/12 border-y border-black/18">
-                {projects.map((project, index) => {
-                  const [
-                    name = "Project",
-                    stack = "Stack",
-                    description = splitLine(project.join(" ")),
-                  ] = project[0].split("|").map((part) => part.trim())
-
-                  return (
-                    <div
-                      key={`${name}-${index}`}
-                      className="cv-project-row grid gap-3 py-3"
-                    >
-                      <span className="font-mono text-sm text-[#1f32b7]">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      <div className="font-mono text-[11px] leading-tight uppercase">
-                        <p>Project Name:</p>
-                        <p className="font-bold">{name}</p>
-                        <p>{stack}</p>
-                      </div>
-                      <p className="border-l border-black/20 pl-4 font-mono text-[11px] leading-tight">
-                        {description || project.slice(1).join(" ")}
-                      </p>
+                {data.projects.map((project, index) => (
+                  <div
+                    key={`${project.name}-${index}`}
+                    className="cv-project-row grid gap-3 py-3"
+                  >
+                    <span className="font-mono text-sm text-[#1f32b7]">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div className="font-mono text-[11px] leading-tight uppercase">
+                      <p className="font-bold">{project.name}</p>
+                      <p>{project.stack}</p>
                     </div>
-                  )
-                })}
+                    <p className="border-l border-black/20 pl-4 font-mono text-[11px] leading-tight">
+                      {project.description}
+                    </p>
+                  </div>
+                ))}
               </div>
             </section>
 
-            <div className="cv-two-column grid gap-5">
-              <section className="cv-section">
-                <SectionTitle>Award & Recognition</SectionTitle>
-                <div className="space-y-1 font-mono text-[11px] leading-tight">
-                  {awards.flat().map((award) => (
-                    <p key={award}>{award}</p>
-                  ))}
-                </div>
-              </section>
+            {middleSections.length > 0 ? (
+              <div
+                className="cv-two-column cv-dynamic-grid grid gap-5"
+                data-count={middleSections.length}
+              >
+                {middleSections.includes("taste") ? (
+                  <section className="cv-section">
+                    <SectionTitle>Technical & Cultural Taste</SectionTitle>
+                    <div className="border-t border-black/20 pt-3 font-mono text-[11px] leading-tight">
+                      {lines(data.taste).map((taste) => (
+                        <p key={taste}>{taste}</p>
+                      ))}
+                    </div>
+                  </section>
+                ) : null}
 
-              <section className="cv-section">
-                <SectionTitle>Technical & Cultural Taste</SectionTitle>
-                <div className="relative h-16 border-t border-black/20">
-                  <div className="taste-line" />
-                  <div className="taste-node left-[8%]" />
-                  <div className="taste-node left-[45%]" />
-                  <div className="taste-node left-[84%]" />
-                </div>
-                <div className="space-y-1 font-mono text-[11px] leading-tight">
-                  {skills.flat().map((skill) => (
-                    <p key={skill}>{skill}</p>
-                  ))}
-                </div>
-              </section>
-            </div>
+                {middleSections.includes("awards") ? (
+                  <section className="cv-section">
+                    <SectionTitle>Award & Recognition</SectionTitle>
+                    <div className="space-y-1 font-mono text-[11px] leading-tight">
+                      {lines(data.awards).map((award) => (
+                        <p key={award}>{award}</p>
+                      ))}
+                    </div>
+                  </section>
+                ) : null}
+              </div>
+            ) : null}
 
-            <footer className="cv-footer mt-5 grid gap-4 border-t border-black/18 pt-4">
-              <div className="font-mono text-[11px] leading-tight">
-                <MiniTitle>Education & Certifications</MiniTitle>
-                {education.flat().map((line) => (
-                  <p key={line}>{line}</p>
-                ))}
-              </div>
-              <div className="font-mono text-[10px] leading-tight uppercase">
-                <MiniTitle>Portfolio QR Code</MiniTitle>
-                <div className="qr-code mx-auto my-2" aria-hidden="true">
-                  <span />
-                </div>
-                <p>{data.website}</p>
-              </div>
-              <div className="font-mono text-[11px] leading-tight">
-                <MiniTitle>Key Skills & Tools</MiniTitle>
-                {skills.flat().map((skill) => (
-                  <p key={skill}>{skill}</p>
-                ))}
-              </div>
-              <div className="botanical" aria-hidden="true">
-                <div className="flower" />
-                <div className="stem" />
-                <div className="leaf leaf-a" />
-                <div className="leaf leaf-b" />
-              </div>
-            </footer>
+            {footerSections.length > 0 ? (
+              <footer
+                className="cv-footer mt-5 grid gap-4 border-t border-black/18 pt-4"
+                data-count={footerSections.length}
+              >
+                {footerSections.includes("skills") ? (
+                  <div className="font-mono text-[11px] leading-tight">
+                    <MiniTitle>Key Skills & Tools</MiniTitle>
+                    {lines(data.skills).map((skill) => (
+                      <p key={skill}>{skill}</p>
+                    ))}
+                  </div>
+                ) : null}
 
-            <div className="mt-4 flex items-center justify-between border-t border-black/12 pt-3 font-mono text-[9px] tracking-[0.12em] text-black/55 uppercase">
-              <span>// Archive Log: 05.11.2026 18:24:28 UTC</span>
-              <span>Secure &middot; Encrypted &middot; Verified</span>
-            </div>
+                {footerSections.includes("portfolio") ? (
+                  <div className="font-mono text-[10px] leading-tight uppercase">
+                    <MiniTitle>Portfolio QR Code</MiniTitle>
+                    <PortfolioQrCode value={data.website} />
+                    <a href={normalizeUrl(data.website)}>{data.website}</a>
+                  </div>
+                ) : null}
+
+                {footerSections.includes("education") ? (
+                  <div className="font-mono text-[11px] leading-tight">
+                    <MiniTitle>Education & Certifications</MiniTitle>
+                    {lines(data.education).map((line) => (
+                      <p key={line}>{line}</p>
+                    ))}
+                  </div>
+                ) : null}
+              </footer>
+            ) : null}
           </article>
         </section>
       </div>
     </main>
+  )
+}
+
+function FormBlock({
+  title,
+  children,
+}: {
+  title: string
+  children: React.ReactNode
+}) {
+  return (
+    <section className="grid gap-3">
+      <FormTitle>{title}</FormTitle>
+      <div className="grid gap-3 md:grid-cols-2">{children}</div>
+    </section>
+  )
+}
+
+function FormTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="font-mono text-[11px] tracking-[0.18em] uppercase">
+      {children}
+    </h2>
+  )
+}
+
+function TextField({
+  label,
+  value,
+  onChange,
+  multiline = false,
+  wide = false,
+}: {
+  label: string
+  value: string
+  onChange: (value: string) => void
+  multiline?: boolean
+  wide?: boolean
+}) {
+  return (
+    <div className={wide ? "grid gap-1.5 md:col-span-2" : "grid gap-1.5"}>
+      <Label className="font-mono text-[11px] tracking-[0.12em] text-black/60 uppercase">
+        {label}
+      </Label>
+      {multiline ? (
+        <Textarea
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+          className="min-h-24 resize-y rounded-none border-black/25 bg-[#fffdf5]/75 font-mono text-xs leading-relaxed focus-visible:ring-[#1f32b7]/25"
+        />
+      ) : (
+        <Input
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+          className="rounded-none border-black/25 bg-[#fffdf5]/75 font-mono text-xs focus-visible:ring-[#1f32b7]/25"
+        />
+      )}
+    </div>
   )
 }
 

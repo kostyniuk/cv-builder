@@ -155,6 +155,7 @@
 }
 
 .cv-sheet {
+  height: 1300px;
   min-height: 1300px;
   isolation: isolate;
 }
@@ -193,15 +194,27 @@
 }
 
 .cv-name {
-  font-size: clamp(4.8rem, 16vw, 11rem);
+  max-width: 500px;
+  font-size: 2.85rem;
+  white-space: nowrap;
 }
 
 .cv-section {
   margin-top: 24px;
 }
 
+.form-card {
+  padding: 12px;
+  border: 1px solid rgb(0 0 0 / 14%);
+  background: rgb(255 253 245 / 52%);
+}
+
 .cv-header {
-  grid-template-columns: minmax(0, 1fr) 330px;
+  grid-template-columns: 500px minmax(0, 1fr);
+}
+
+.cv-contact-grid {
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
 }
 
 .cv-project-row {
@@ -212,8 +225,24 @@
   grid-template-columns: 1fr 1fr;
 }
 
+.cv-dynamic-grid[data-count="1"] {
+  grid-template-columns: 1fr;
+}
+
 .cv-footer {
-  grid-template-columns: 1fr 130px 1.15fr 170px;
+  grid-template-columns: 1.15fr 130px 1fr;
+}
+
+.cv-footer[data-count="1"] {
+  grid-template-columns: 1fr;
+}
+
+.cv-footer[data-count="2"] {
+  grid-template-columns: 1fr 1fr;
+}
+
+.cv-footer[data-count="3"] {
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .corner {
@@ -268,11 +297,36 @@
 .timeline-node {
   position: absolute;
   top: 2px;
-  left: -39px;
+  left: -40px;
   width: 7px;
   height: 7px;
   background: #fbfaf4;
   border: 1px solid rgba(0, 0, 0, 0.45);
+}
+
+.timeline-line {
+  left: 139px;
+}
+
+.portfolio-qr {
+  width: 74px;
+  height: 74px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  background: #fbfaf4;
+}
+
+.portfolio-qr img,
+.portfolio-qr span {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.portfolio-qr span {
+  background:
+    linear-gradient(90deg, #111 50%, transparent 0) 0 0 / 12px 12px,
+    linear-gradient(#111 50%, transparent 0) 0 0 / 12px 12px,
+    #fbfaf4;
 }
 
 .qr-code {
@@ -291,25 +345,6 @@
   position: absolute;
   inset: 29px;
   background: #1f32b7;
-}
-
-.taste-line {
-  position: absolute;
-  top: 30px;
-  right: 4px;
-  left: 4px;
-  height: 1px;
-  background: rgba(0, 0, 0, 0.26);
-}
-
-.taste-node {
-  position: absolute;
-  top: 25px;
-  width: 10px;
-  height: 10px;
-  background: #fbfaf4;
-  border: 1px solid rgba(0, 0, 0, 0.38);
-  border-radius: 999px;
 }
 
 .botanical {
@@ -439,12 +474,17 @@
   }
 
   .cv-header,
+  .cv-contact-grid,
   .cv-two-column {
     display: grid !important;
   }
 
   .cv-header {
-    grid-template-columns: minmax(0, 1fr) 330px !important;
+    grid-template-columns: 500px minmax(0, 1fr) !important;
+  }
+
+  .cv-contact-grid {
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr) !important;
   }
 
   .cv-project-row {
@@ -456,15 +496,33 @@
     grid-template-columns: 1fr 1fr !important;
   }
 
+  .cv-dynamic-grid[data-count="1"] {
+    grid-template-columns: 1fr !important;
+  }
+
   .cv-footer {
     display: grid !important;
-    grid-template-columns: 1fr 130px 1.15fr 170px !important;
+    grid-template-columns: 1.15fr 130px 1fr !important;
+  }
+
+  .cv-footer[data-count="1"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  .cv-footer[data-count="2"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .cv-footer[data-count="3"] {
+    grid-template-columns: 1fr 1fr 1fr !important;
   }
 
   .cv-name {
-    font-size: 11rem !important;
+    max-width: 500px !important;
+    font-size: 2.85rem !important;
     line-height: 0.82 !important;
-    word-break: break-all !important;
+    white-space: nowrap !important;
+    word-break: normal !important;
   }
 
   .cv-section {
