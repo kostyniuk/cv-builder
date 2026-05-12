@@ -112,18 +112,19 @@ export default function Page() {
     <main className="cv-app min-h-svh px-4 py-5 text-[#111] sm:px-6 lg:px-8">
       <div className="mx-auto flex max-w-[1720px] flex-col gap-6">
         <section className="print-area flex min-w-0 justify-center self-center">
-          <article className="cv-sheet relative w-full max-w-[930px] overflow-hidden border border-black/20 bg-[#fbfaf4] p-8 text-[#111] shadow-[0_20px_80px_rgba(12,10,3,0.18)] sm:p-8">
+          <article className="cv-sheet relative w-full overflow-hidden border border-black/20 bg-[#fbfaf4] text-[#111] shadow-[0_20px_80px_rgba(12,10,3,0.18)]">
             <div className="corner corner-tl" />
             <div className="corner corner-tr" />
             <div className="corner corner-bl" />
             <div className="corner corner-br" />
-
-            <CvHeader data={data} />
-            <SummarySection summary={data.summary} />
-            <ExperienceSection experience={data.experience} />
-            <ProjectsSection projects={data.projects} />
-            <MiddleSections sections={middleSections} data={data} />
-            <FooterSections sections={footerSections} data={data} />
+            <div className="cv-sheet-inner">
+              <CvHeader data={data} />
+              <SummarySection summary={data.summary} />
+              <ExperienceSection experience={data.experience} />
+              <ProjectsSection projects={data.projects} />
+              <MiddleSections sections={middleSections} data={data} />
+              <FooterSections sections={footerSections} data={data} />
+            </div>
           </article>
         </section>
 
