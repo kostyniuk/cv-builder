@@ -7,6 +7,10 @@ export function ExperienceSection({
 }: {
   experience: ExperienceItem[]
 }) {
+  if (experience.length === 0) {
+    return null
+  }
+
   return (
     <section className="cv-section">
       <SectionTitle>Experience</SectionTitle>

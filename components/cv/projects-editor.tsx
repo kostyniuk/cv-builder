@@ -44,7 +44,6 @@ export function ProjectsEditor({
               size="icon-xs"
               variant="outline"
               aria-label="Remove project"
-              disabled={projects.length === 1}
               className="rounded-none border-black/25 bg-[#fbfaf4]"
               onClick={() => onRemove(index)}
             >

@@ -4,6 +4,10 @@ import { normalizeUrl } from "@/lib/url"
 import { SectionTitle } from "./form-primitives"
 
 export function ProjectsSection({ projects }: { projects: ProjectItem[] }) {
+  if (projects.length === 0) {
+    return null
+  }
+
   return (
     <section className="cv-section">
       <SectionTitle>Projects</SectionTitle>

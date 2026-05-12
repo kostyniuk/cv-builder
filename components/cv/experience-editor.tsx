@@ -44,7 +44,6 @@ export function ExperienceEditor({
               size="icon-xs"
               variant="outline"
               aria-label="Remove position"
-              disabled={experience.length === 1}
               className="rounded-none border-black/25 bg-[#fbfaf4]"
               onClick={() => onRemove(index)}
             >
