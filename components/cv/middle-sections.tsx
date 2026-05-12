@@ -22,7 +22,7 @@ export function MiddleSections({
     >
       {sections.includes("inspirations") ? (
         <section className="cv-section">
-          <SectionTitle>People, Channels & Sources</SectionTitle>
+          <SectionTitle>People & Companies I look up to</SectionTitle>
           <div className="font-mono text-[11px] leading-tight">
             <p>
               {lines(data.inspirations).map((line, index, items) => (
@@ -38,7 +38,7 @@ export function MiddleSections({
 
       {sections.includes("taste") ? (
         <section className="cv-section">
-          <SectionTitle>Technical & Cultural Taste</SectionTitle>
+          <SectionTitle>Technical Taste</SectionTitle>
           <div className="font-mono text-[11px] leading-tight">
             {lines(data.taste).map((taste) => (
               <p key={taste}>{taste}</p>

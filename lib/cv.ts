@@ -72,7 +72,7 @@ export const initialData: CvData = {
   summary:
     "Product Engineer focused on solving customer problems. Spending a lot of time discussing solutions with Business and UI design teams to deliver the best outcome. Having a lot of fun orchestrating AI agents to both write and review code, drastically improving my performance and the quality of code I produce. Learning new technologies, trying to get better each day",
   about:
-    "Strong bias toward shipping and simplifying systems. Interested in AI-assisted engineering workflows, UI architecture, internal platform improvements, and practical automation that removes friction for both teams and customers.",
+    "I like to create beautiful UIs, like to dress well, and like NBA and football. I'm a big dog lover - have one myself, named Theo. I used to run a lot, and had run a half-marathon back in the day. Trying to be happy and make people around me happy too.",
   socialLinks: [
     { label: "LinkedIn", url: "https://www.linkedin.com/in/kostyniuk" },
     { label: "X / Twitter", url: "https://x.com/kostyniuk00" },
@@ -115,7 +115,7 @@ export const initialData: CvData = {
       url: "https://glasscn-components.vercel.app/",
       stack: "shadcn/ui, glassmorphism, component library",
       description:
-        "A library of Apple-like glass components for shadcn/ui, with 20+ glass-styled primitives, 5 glass effect variants for dark and light themes, Apple-inspired translucent surfaces, and SVG-based physical refraction for realistic light bending through thick glass.",
+        "A library of Apple-like glass components for shadcn/ui, with 20+ glass-styled primitives, 5 glass effect variants for dark and light themes, clear surfaces, and SVG-based physical refraction for realistic light bending through thick glass.",
     },
     {
       name: "Mellow Lines",
