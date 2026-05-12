@@ -45,7 +45,6 @@ export function SocialLinksEditor({
                 size="icon-xs"
                 variant="outline"
                 aria-label="Remove social link"
-                disabled={socialLinks.length === 1}
                 className="rounded-none border-black/25 bg-[#fbfaf4]"
                 onClick={() => onRemove(index)}
               >

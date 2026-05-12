@@ -25,17 +25,19 @@ export function CvHeader({ data }: CvHeaderProps) {
           <p>{data.role || "Digital Systems Designer"}</p>
         </div>
         <div className="mt-3 flex flex-wrap gap-2">
-          <a
-            href={normalizeUrl(data.website)}
-            target="_blank"
-            rel="noreferrer"
-            className="social-chip"
-          >
-            <span className="social-chip-icon">
-              <Globe className="size-3" />
-            </span>
-            <span>{data.website}</span>
-          </a>
+          {data.website.trim() ? (
+            <a
+              href={normalizeUrl(data.website)}
+              target="_blank"
+              rel="noreferrer"
+              className="social-chip"
+            >
+              <span className="social-chip-icon">
+                <Globe className="size-3" />
+              </span>
+              <span>{data.website}</span>
+            </a>
+          ) : null}
           {data.socialLinks.map((link) => (
             <a
               key={`${link.label}-${link.url}`}
