@@ -210,6 +210,10 @@
   background: rgb(255 253 245 / 52%);
 }
 
+.form-block-grid > :last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
 .cv-header {
   grid-template-columns: minmax(0, 1fr) 300px;
 }

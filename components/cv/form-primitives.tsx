@@ -14,7 +14,7 @@ export function FormBlock({
   return (
     <section className="grid gap-3">
       <FormTitle>{title}</FormTitle>
-      <div className="grid gap-3 md:grid-cols-2">{children}</div>
+      <div className="form-block-grid grid gap-3 md:grid-cols-2">{children}</div>
     </section>
   )
 }

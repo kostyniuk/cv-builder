@@ -113,10 +113,7 @@ export default function Page() {
         <section className="no-print cv-panel border border-black/15 bg-[#f4f1e8]/90 p-4 shadow-[8px_8px_0_rgba(15,15,15,0.08)] backdrop-blur md:p-5">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="font-mono text-[10px] tracking-[0.22em] text-[#1f32b7] uppercase">
-                Digital systems
-              </p>
-              <h1 className="mt-2 text-2xl font-black tracking-normal">
+              <h1 className="text-2xl font-black tracking-normal">
                 One-page CV Builder
               </h1>
             </div>
@@ -147,11 +144,6 @@ export default function Page() {
                 onChange={(value) => updateField("nameFontSize", value)}
               />
               <TextField
-                label="Role"
-                value={data.role}
-                onChange={(value) => updateField("role", value)}
-              />
-              <TextField
                 label="Email"
                 value={data.email}
                 onChange={(value) => updateField("email", value)}
@@ -160,6 +152,11 @@ export default function Page() {
                 label="Phone"
                 value={data.phone}
                 onChange={(value) => updateField("phone", value)}
+              />
+              <TextField
+                label="Role"
+                value={data.role}
+                onChange={(value) => updateField("role", value)}
               />
             </FormBlock>
 
