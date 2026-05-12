@@ -194,9 +194,10 @@
 }
 
 .cv-name {
-  max-width: 500px;
+  max-width: 540px;
   font-size: 2.85rem;
   white-space: nowrap;
+  text-wrap: balance;
 }
 
 .cv-section {
@@ -210,11 +211,11 @@
 }
 
 .cv-header {
-  grid-template-columns: 500px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) 300px;
 }
 
 .cv-contact-grid {
-  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  grid-template-columns: 1fr;
 }
 
 .cv-project-row {
@@ -222,7 +223,7 @@
 }
 
 .cv-two-column {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .cv-dynamic-grid[data-count="1"] {
@@ -281,23 +282,10 @@
   border-bottom: 1px solid;
 }
 
-.barcode {
-  min-height: 92px;
-  background: repeating-linear-gradient(
-    90deg,
-    #111 0 2px,
-    transparent 2px 4px,
-    #111 4px 6px,
-    transparent 6px 11px,
-    #111 11px 12px,
-    transparent 12px 15px
-  );
-}
-
 .timeline-node {
   position: absolute;
   top: 2px;
-  left: -40px;
+  left: -32px;
   width: 7px;
   height: 7px;
   background: #fbfaf4;
@@ -305,7 +293,7 @@
 }
 
 .timeline-line {
-  left: 139px;
+  left: 115px;
 }
 
 .portfolio-qr {
@@ -347,63 +335,32 @@
   background: #1f32b7;
 }
 
-.botanical {
-  position: relative;
-  min-height: 210px;
-  border: 1px solid rgba(0, 0, 0, 0.16);
-  overflow: hidden;
+.social-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  padding: 0.3rem 0.45rem;
+  font-size: 10px;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
-.stem {
-  position: absolute;
-  bottom: 15px;
-  left: 82px;
-  width: 1px;
-  height: 150px;
-  background: rgba(0, 0, 0, 0.42);
-  transform: rotate(13deg);
+.social-chip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.3rem;
+  height: 1.3rem;
+  border: 1px solid rgba(0, 0, 0, 0.28);
+  background: rgba(31, 50, 183, 0.08);
+  font-size: 9px;
+  font-weight: 700;
 }
 
-.flower {
-  position: absolute;
-  top: 20px;
-  left: 45px;
-  width: 76px;
-  height: 76px;
-  border: 1px solid rgba(0, 0, 0, 0.38);
-  border-radius: 50% 50% 45% 45%;
-  background:
-    radial-gradient(
-      ellipse at center,
-      transparent 28%,
-      rgba(0, 0, 0, 0.28) 29%,
-      transparent 31%
-    ),
-    repeating-conic-gradient(
-      from 14deg,
-      transparent 0 11deg,
-      rgba(0, 0, 0, 0.2) 11deg 12deg
-    );
-}
-
-.leaf {
-  position: absolute;
-  width: 62px;
-  height: 24px;
-  border: 1px solid rgba(0, 0, 0, 0.32);
-  border-radius: 100% 0;
-}
-
-.leaf-a {
-  right: 24px;
-  bottom: 68px;
-  transform: rotate(-37deg);
-}
-
-.leaf-b {
-  bottom: 96px;
-  left: 42px;
-  transform: rotate(36deg) scaleX(-1);
+.cv-experience-row {
+  min-height: 48px;
 }
 
 @media print {
@@ -480,11 +437,11 @@
   }
 
   .cv-header {
-    grid-template-columns: 500px minmax(0, 1fr) !important;
+    grid-template-columns: minmax(0, 1fr) 300px !important;
   }
 
   .cv-contact-grid {
-    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr) !important;
+    grid-template-columns: 1fr !important;
   }
 
   .cv-project-row {
@@ -493,7 +450,7 @@
   }
 
   .cv-two-column {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 
   .cv-dynamic-grid[data-count="1"] {
@@ -518,7 +475,7 @@
   }
 
   .cv-name {
-    max-width: 500px !important;
+    max-width: 540px !important;
     font-size: 2.85rem !important;
     line-height: 0.82 !important;
     white-space: nowrap !important;
@@ -529,16 +486,12 @@
     margin-top: 24px !important;
   }
 
-  .barcode {
-    min-height: 92px !important;
-  }
-
-  .botanical {
-    min-height: 210px !important;
-  }
-
   .qr-code {
     width: 74px !important;
     height: 74px !important;
+  }
+
+  .social-chip {
+    text-decoration: none !important;
   }
 }

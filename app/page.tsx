@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Download, Minus, Plus, RotateCcw } from "lucide-react"
+import { Download, Globe, Link2, Minus, Plus, RotateCcw } from "lucide-react"
 
 import { PortfolioQrCode } from "@/components/portfolio-qr-code"
 import { Button } from "@/components/ui/button"
@@ -30,20 +30,24 @@ type SocialLink = {
 }
 
 type SectionKey =
+  | "about"
   | "awards"
   | "taste"
+  | "inspirations"
   | "education"
   | "portfolio"
   | "skills"
-  | "botanical"
 
 type CvData = {
   name: string
+  nameFontSize: string
   role: string
   email: string
   phone: string
   location: string
   website: string
+  summary: string
+  about: string
   socialLinks: SocialLink[]
   experience: ExperienceItem[]
   projects: ProjectItem[]
@@ -51,6 +55,7 @@ type CvData = {
   awards: string
   skills: string
   taste: string
+  inspirations: string
   sections: Record<SectionKey, boolean>
 }
 
@@ -69,14 +74,20 @@ const blankProject: ProjectItem = {
 
 const initialData: CvData = {
   name: "Alex Kostyniuk",
+  nameFontSize: "4.7",
   role: "Software Engineer",
   email: "kostyniukengineering@gmail.com",
   phone: "(12) 345-6787",
   location: "Stockholm, Sweden",
   website: "a13x.space",
+  summary:
+    "I like building software that feels clear, durable, and useful. I care about systems that reduce noise, make teams faster, and stay understandable as they grow.",
+  about:
+    "Strong bias toward shipping. Enjoy product taste, developer experience, and reducing complexity in both code and process.",
   socialLinks: [
-    { label: "ApexLabs", url: "https://apexlabs.example.com/alex" },
-    { label: "Designs", url: "https://helloben.designs" },
+    { label: "LinkedIn", url: "https://www.linkedin.com/in/alexkostyniuk" },
+    { label: "X / Twitter", url: "https://x.com/alexkostyniuk" },
+    { label: "GitHub", url: "https://github.com/alexkostyniuk" },
   ],
   experience: [
     {
@@ -129,23 +140,27 @@ const initialData: CvData = {
     "Languages: Python, Go, Rust, TypeScript\nFrameworks: React, Node.js, TensorFlow, Docker, K8s\nTools: AWS, Git, Figma",
   taste:
     "Functional programming, distributed systems, quiet interfaces, developer tools, technical writing",
+  inspirations:
+    "The Pragmatic Engineer\nByteByteGo\nStrangeloop talks\nDan Abramov\nBret Victor",
   sections: {
+    about: true,
     awards: true,
     taste: true,
+    inspirations: true,
     education: true,
     portfolio: true,
     skills: true,
-    botanical: true,
   },
 }
 
 const sectionLabels: Record<SectionKey, string> = {
+  about: "Additional Info",
   awards: "Awards",
   taste: "Taste",
+  inspirations: "People & Sources",
   education: "Education",
   portfolio: "QR",
   skills: "Skills",
-  botanical: "Botanical",
 }
 
 function lines(value: string) {
@@ -155,20 +170,53 @@ function lines(value: string) {
     .filter(Boolean)
 }
 
+function parseNameFontSize(value: string) {
+  const parsed = Number.parseFloat(value)
+  return Number.isFinite(parsed) ? parsed : 2.85
+}
+
+function socialBadge(label: string, url: string) {
+  const source = `${label} ${url}`.toLowerCase()
+
+  if (source.includes("linkedin")) {
+    return "in"
+  }
+
+  if (
+    source.includes("github") ||
+    source.includes("gitlab") ||
+    source.includes("bitbucket")
+  ) {
+    return "gh"
+  }
+
+  if (
+    source.includes("twitter") ||
+    source.includes("x.com") ||
+    source.includes("x /")
+  ) {
+    return "x"
+  }
+
+  const compact = label.replace(/[^a-z0-9]/gi, "").slice(0, 2)
+  return compact ? compact.toLowerCase() : "ln"
+}
+
 export default function Page() {
   const [data, setData] = useState<CvData>(initialData)
 
   const middleSections = [
-    data.sections.awards ? "awards" : null,
+    data.sections.about ? "about" : null,
     data.sections.taste ? "taste" : null,
-  ].filter(Boolean) as Array<"awards" | "taste">
+    data.sections.inspirations ? "inspirations" : null,
+    data.sections.awards ? "awards" : null,
+  ].filter(Boolean) as Array<"about" | "taste" | "inspirations" | "awards">
 
   const footerSections = [
-    data.sections.education ? "education" : null,
-    data.sections.portfolio ? "portfolio" : null,
     data.sections.skills ? "skills" : null,
-    data.sections.botanical ? "botanical" : null,
-  ].filter(Boolean) as Array<"education" | "portfolio" | "skills" | "botanical">
+    data.sections.portfolio ? "portfolio" : null,
+    data.sections.education ? "education" : null,
+  ].filter(Boolean) as Array<"skills" | "portfolio" | "education">
 
   function updateField(
     field: keyof Omit<
@@ -264,6 +312,11 @@ export default function Page() {
                 onChange={(value) => updateField("name", value)}
               />
               <TextField
+                label="Name size (rem)"
+                value={data.nameFontSize}
+                onChange={(value) => updateField("nameFontSize", value)}
+              />
+              <TextField
                 label="Role"
                 value={data.role}
                 onChange={(value) => updateField("role", value)}
@@ -290,6 +343,16 @@ export default function Page() {
                 label="Website"
                 value={data.website}
                 onChange={(value) => updateField("website", value)}
+              />
+            </FormBlock>
+
+            <FormBlock title="Profile">
+              <TextField
+                label="Main Info Before Experience"
+                value={data.summary}
+                onChange={(value) => updateField("summary", value)}
+                multiline
+                wide
               />
             </FormBlock>
 
@@ -410,7 +473,7 @@ export default function Page() {
                       <Minus />
                     </Button>
                   </div>
-                  <div className="grid gap-3 md:grid-cols-[1fr_1fr_150px]">
+                  <div className="grid gap-3 md:grid-cols-[1fr_1fr]">
                     <TextField
                       label="Company"
                       value={item.company}
@@ -425,14 +488,12 @@ export default function Page() {
                         updateExperience(index, "title", value)
                       }
                     />
-                    <TextField
-                      label="Date"
-                      value={item.date}
-                      onChange={(value) =>
-                        updateExperience(index, "date", value)
-                      }
-                    />
                   </div>
+                  <TextField
+                    label="Date"
+                    value={item.date}
+                    onChange={(value) => updateExperience(index, "date", value)}
+                  />
                   <TextField
                     label="Bullets"
                     value={item.bullets}
@@ -537,6 +598,13 @@ export default function Page() {
 
             <FormBlock title="Signal">
               <TextField
+                label="Additional / Random Info"
+                value={data.about}
+                onChange={(value) => updateField("about", value)}
+                multiline
+                wide
+              />
+              <TextField
                 label="Education"
                 value={data.education}
                 onChange={(value) => updateField("education", value)}
@@ -555,9 +623,15 @@ export default function Page() {
                 multiline
               />
               <TextField
-                label="Technical taste"
+                label="Technical & Cultural Taste"
                 value={data.taste}
                 onChange={(value) => updateField("taste", value)}
+                multiline
+              />
+              <TextField
+                label="People / Channels / Sources"
+                value={data.inspirations}
+                onChange={(value) => updateField("inspirations", value)}
                 multiline
               />
             </FormBlock>
@@ -581,28 +655,45 @@ export default function Page() {
 
             <header className="cv-header grid gap-5 border-b border-black/25 pb-2">
               <div>
-                {/* <div className="flex items-center gap-5 font-mono text-[10px] tracking-[0.18em] uppercase">
-                  <span className="size-3 bg-[#1f32b7]" />
-                  <span>Digital Systems</span>
-                  <span>Design Solutions</span>
-                </div> */}
-                <h2 className="cv-name leading-[0.82] font-black tracking-[-0.04em]">
+                <h2
+                  className="cv-name leading-[0.82] font-black tracking-[-0.04em]"
+                  style={{ fontSize: `${parseNameFontSize(data.nameFontSize)}rem` }}
+                >
                   {data.name || "alex"}
                 </h2>
-                <div className="inline space-x-2">
-                  <p className="inline font-mono text-xs tracking-[0.12em] uppercase">
-                    {(data.role || "Digital Systems Designer") + ","}
-                  </p>
+                <div className="mt-3 flex items-center gap-2 font-mono text-xs tracking-[0.12em] uppercase">
+                  <p>{data.role || "Digital Systems Designer"}</p>
+                </div>
+                <div className="mt-3 flex flex-wrap gap-2">
                   <a
                     href={normalizeUrl(data.website)}
-                    className="inline font-mono text-[11px] tracking-[0.1em] text-[#1f32b7] uppercase"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="social-chip"
                   >
-                    {data.website}
+                    <span className="social-chip-icon">
+                      <Globe className="size-3" />
+                    </span>
+                    <span>{data.website}</span>
                   </a>
+                  {data.socialLinks.map((link) => (
+                    <a
+                      key={`${link.label}-${link.url}`}
+                      href={normalizeUrl(link.url)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="social-chip"
+                    >
+                      <span className="social-chip-icon">
+                        {socialBadge(link.label, link.url)}
+                      </span>
+                      <span>{link.label}</span>
+                    </a>
+                  ))}
                 </div>
               </div>
 
-              <div className="cv-contact-grid grid gap-5 self-center font-mono text-[11px] leading-tight uppercase">
+              <div className="cv-contact-grid grid gap-5 self-start font-mono text-[11px] leading-tight uppercase">
                 <div className="relative border-l border-black/25 py-2 pl-5">
                   <p>
                     <b>Phone:</b> <span>{data.phone}</span>
@@ -614,39 +705,43 @@ export default function Page() {
                     <b>Location:</b> <span>{data.location}</span>
                   </p>
                 </div>
-                <div className="relative border-l border-black/25 py-2 pl-5">
-                  {data.socialLinks.map((link) => (
-                    <a
-                      key={`${link.label}-${link.url}`}
-                      href={normalizeUrl(link.url)}
-                      className="block underline-offset-2 hover:underline"
-                    >
-                      online profiles / {link.label}
-                    </a>
-                  ))}
-                </div>
               </div>
             </header>
 
+            {data.summary.trim() ? (
+              <section className="cv-section">
+                <SectionTitle>Main Ideas</SectionTitle>
+                <div className="border-t border-black/18 pt-3 font-mono text-[11px] leading-relaxed">
+                  {lines(data.summary).map((line) => (
+                    <p key={line}>{line}</p>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
             <section className="cv-section">
               <SectionTitle>Experience</SectionTitle>
-              <div className="cv-timeline relative grid gap-5 pl-44">
-                <div className="timeline-line absolute top-3 h-[calc(100%-20px)] w-px bg-black/25" />
+              <div className="cv-timeline relative grid gap-5 pl-36">
+                <div className="timeline-line absolute top-2 h-[calc(100%-8px)] w-px bg-black/25" />
                 {data.experience.map((item, index) => (
                   <div
                     key={`${item.company}-${index}`}
-                    className="relative block"
+                    className="cv-experience-row relative grid gap-1"
                   >
-                    <div className="absolute -left-44 w-28 font-mono text-[11px]">
+                    <div className="absolute -left-36 w-24 font-mono text-[11px] leading-tight">
                       {item.date}
                     </div>
                     <div className="timeline-node" />
-                    <h3 className="font-mono text-sm font-bold">
-                      {item.company}
+                    <div>
+                      <h3 className="font-mono text-sm font-bold">
+                        {item.company}
+                      </h3>
                       {item.title ? (
-                        <span className="font-normal"> | {item.title}</span>
+                        <p className="font-mono text-[11px] uppercase">
+                          {item.title}
+                        </p>
                       ) : null}
-                    </h3>
+                    </div>
                     <ul className="mt-1 list-disc space-y-1 pl-5 font-mono text-[11px] leading-tight">
                       {lines(item.bullets).map((line) => (
                         <li key={line}>{line}</li>
@@ -685,12 +780,34 @@ export default function Page() {
                 className="cv-two-column cv-dynamic-grid grid gap-5"
                 data-count={middleSections.length}
               >
+                {middleSections.includes("about") ? (
+                  <section className="cv-section">
+                    <SectionTitle>Additional Info</SectionTitle>
+                    <div className="border-t border-black/20 pt-3 font-mono text-[11px] leading-tight">
+                      {lines(data.about).map((line) => (
+                        <p key={line}>{line}</p>
+                      ))}
+                    </div>
+                  </section>
+                ) : null}
+
                 {middleSections.includes("taste") ? (
                   <section className="cv-section">
                     <SectionTitle>Technical & Cultural Taste</SectionTitle>
                     <div className="border-t border-black/20 pt-3 font-mono text-[11px] leading-tight">
                       {lines(data.taste).map((taste) => (
                         <p key={taste}>{taste}</p>
+                      ))}
+                    </div>
+                  </section>
+                ) : null}
+
+                {middleSections.includes("inspirations") ? (
+                  <section className="cv-section">
+                    <SectionTitle>People, Channels & Sources</SectionTitle>
+                    <div className="space-y-1 font-mono text-[11px] leading-tight">
+                      {lines(data.inspirations).map((line) => (
+                        <p key={line}>{line}</p>
                       ))}
                     </div>
                   </section>
@@ -727,7 +844,15 @@ export default function Page() {
                   <div className="font-mono text-[10px] leading-tight uppercase">
                     <MiniTitle>Portfolio QR Code</MiniTitle>
                     <PortfolioQrCode value={data.website} />
-                    <a href={normalizeUrl(data.website)}>{data.website}</a>
+                    <a
+                      href={normalizeUrl(data.website)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2"
+                    >
+                      <Link2 className="size-3" />
+                      {data.website}
+                    </a>
                   </div>
                 ) : null}
 
