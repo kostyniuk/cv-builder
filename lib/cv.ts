@@ -7,6 +7,7 @@ export type ExperienceItem = {
 
 export type ProjectItem = {
   name: string;
+  url: string;
   stack: string;
   description: string;
 };
@@ -55,6 +56,7 @@ export const blankExperience: ExperienceItem = {
 
 export const blankProject: ProjectItem = {
   name: "New Project",
+  url: "https://",
   stack: "Tools, stack",
   description: "Short impact-focused project description.",
 };
@@ -109,19 +111,22 @@ export const initialData: CvData = {
   projects: [
     {
       name: "Mellow Lines",
-      stack: "TypeScript, Canvas, Shiki, FFmpeg WASM",
+      url: "https://mellowlines.dev",
+      stack: "Canvas, Shiki, FFmpeg WASM",
       description:
         "A code animation studio that turns code snippets into cinematic videos entirely in the browser.",
     },
     {
       name: "Mellow fmt",
-      stack: "Next.js, TypeScript, formatting tooling",
+      url: "https://mellowfmt.vercel.app",
+      stack: "Tanstack Start, formatting tool",
       description:
         "An interactive playground for exploring and comparing Prettier and Oxfmt formatting options.",
     },
     {
       name: "Alex Posts",
-      stack: "Technical writing, PostgreSQL, React, JavaScript",
+      url: "https://alex-posts.netlify.app/",
+      stack: "Technical writing, PostgreSQL, React, Node, JavaScript",
       description:
         "A technical blog with deep dives into database internals, React mechanics, and JavaScript tooling.",
     },

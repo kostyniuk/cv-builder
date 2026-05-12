@@ -58,6 +58,13 @@ export function ProjectsEditor({
               onChange={(value) => onUpdate(index, "name", value)}
             />
             <TextField
+              label="Link"
+              value={item.url}
+              onChange={(value) => onUpdate(index, "url", value)}
+            />
+          </div>
+          <div className="grid gap-3 md:grid-cols-[1fr]">
+            <TextField
               label="Stack"
               value={item.stack}
               onChange={(value) => onUpdate(index, "stack", value)}

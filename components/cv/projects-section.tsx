@@ -1,4 +1,5 @@
 import type { ProjectItem } from "@/lib/cv"
+import { normalizeUrl } from "@/lib/url"
 
 import { SectionTitle } from "./form-primitives"
 
@@ -16,7 +17,20 @@ export function ProjectsSection({ projects }: { projects: ProjectItem[] }) {
               {String(index + 1).padStart(2, "0")}
             </span>
             <div className="font-mono text-[11px] leading-tight uppercase">
-              <p className="font-bold">{project.name}</p>
+              <p className="font-bold">
+                {project.url.trim() ? (
+                  <a
+                    href={normalizeUrl(project.url)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline-offset-2 hover:underline"
+                  >
+                    {project.name}
+                  </a>
+                ) : (
+                  project.name
+                )}
+              </p>
               <p>{project.stack}</p>
             </div>
             <p className="border-l border-black/20 pl-4 font-mono text-[11px] leading-tight">
