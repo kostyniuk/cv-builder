@@ -1,20 +1,20 @@
 export type ExperienceItem = {
-  company: string
-  title: string
-  date: string
-  bullets: string
-}
+  company: string;
+  title: string;
+  date: string;
+  bullets: string;
+};
 
 export type ProjectItem = {
-  name: string
-  stack: string
-  description: string
-}
+  name: string;
+  stack: string;
+  description: string;
+};
 
 export type SocialLink = {
-  label: string
-  url: string
-}
+  label: string;
+  url: string;
+};
 
 export type SectionKey =
   | "about"
@@ -23,122 +23,128 @@ export type SectionKey =
   | "inspirations"
   | "education"
   | "portfolio"
-  | "skills"
+  | "skills";
 
 export type CvData = {
-  name: string
-  nameFontSize: string
-  role: string
-  email: string
-  phone: string
-  location: string
-  website: string
-  summary: string
-  about: string
-  socialLinks: SocialLink[]
-  experience: ExperienceItem[]
-  projects: ProjectItem[]
-  education: string
-  awards: string
-  skills: string
-  taste: string
-  inspirations: string
-  sections: Record<SectionKey, boolean>
-}
+  name: string;
+  nameFontSize: string;
+  role: string;
+  email: string;
+  phone: string;
+  location: string;
+  website: string;
+  summary: string;
+  about: string;
+  socialLinks: SocialLink[];
+  experience: ExperienceItem[];
+  projects: ProjectItem[];
+  education: string;
+  awards: string;
+  skills: string;
+  taste: string;
+  inspirations: string;
+  sections: Record<SectionKey, boolean>;
+};
 
 export const blankExperience: ExperienceItem = {
   company: "New Company",
   title: "Role title",
   date: "2026 - Present",
   bullets: "Describe one measurable contribution.",
-}
+};
 
 export const blankProject: ProjectItem = {
   name: "New Project",
   stack: "Tools, stack",
   description: "Short impact-focused project description.",
-}
+};
 
 export const initialData: CvData = {
   name: "Alex Kostyniuk",
   nameFontSize: "4.7",
-  role: "Software Engineer",
-  email: "kostyniukengineering@gmail.com",
-  phone: "(12) 345-6787",
+  role: "Team Lead @ AMFG",
+  email: "alexandru.costiniuc00@gmail.com",
+  phone: "",
   location: "Stockholm, Sweden",
   website: "a13x.space",
   summary:
-    "I like building software that feels clear, durable, and useful. I care about systems that reduce noise, make teams faster, and stay understandable as they grow.",
+    "Team Lead and fullstack engineer focused on frontend modernization, backend platform work, performance improvements, and developer experience. I care about shipping durable systems that reduce complexity, improve iteration speed, and make teams more effective.",
   about:
-    "Strong bias toward shipping. Enjoy product taste, developer experience, and reducing complexity in both code and process.",
+    "Strong bias toward shipping and simplifying systems. Interested in AI-assisted engineering workflows, UI architecture, internal platform improvements, and practical automation that removes friction for both teams and customers.",
   socialLinks: [
-    { label: "LinkedIn", url: "https://www.linkedin.com/in/alexkostyniuk" },
-    { label: "X / Twitter", url: "https://x.com/alexkostyniuk" },
-    { label: "GitHub", url: "https://github.com/alexkostyniuk" },
+    { label: "LinkedIn", url: "https://www.linkedin.com/in/kostyniuk" },
+    { label: "X / Twitter", url: "https://x.com/kostyniuk00" },
+    { label: "GitHub", url: "https://github.com/kostyniuk" },
+    { label: "Instagram", url: "https://www.instagram.com/costiniuc00" },
   ],
   experience: [
     {
-      company: "Neural Dynamics Corp.",
-      title: "Economic job title",
-      date: "Jan 2024 - Present",
+      company: "AMFG",
+      title: "Team Lead",
+      date: "May 2025 - Present",
       bullets:
-        "Led a team of 5 engineers designing and implementing microservices architecture using Kubernetes and Docker, improving system throughput by 40%.\nIntegrated a complex machine learning model into the core platform, optimizing data processing efficiency by 60%.\nManaged AWS cloud infrastructure deployment for 12+ critical service components.",
+        "Leading architecture and delivery across frontend modernization, backend platform work, performance improvements, and team-wide developer experience initiatives while managing a team of 2-3 engineers.\nLed migration from Kendo to shadcn/ui and Tailwind CSS, improving iteration speed, developer experience, and UI consistency.\nBuilt a 3D model similarity engine using cosine similarity, vector embeddings, and pgvector in PostgreSQL.",
     },
     {
-      company: "Apex Labs",
-      title: "Realistic Job Title",
-      date: "Mar 2022 - Jan 2024",
+      company: "AMFG",
+      title: "Senior Fullstack Software Engineer",
+      date: "May 2023 - April 2025",
       bullets:
-        "Contributed to decentralized identity protocol development and microservices architecture operations.\nManaged cybersecurity platforms and scalable service deployments for 60% faster handoffs.",
+        "Led team-wide adoption of AI-assisted engineering workflows, frontend modernization, and internal platform initiatives.\nArchitected a sandboxed scripting environment for customer Python and JavaScript automation against the platform API.\nConducted 50+ engineering interviews and helped shape team growth and hiring standards.",
     },
     {
-      company: "Vertex Digital",
-      title: "Realistic job",
-      date: "Aug 2020 - Mar 2022",
+      company: "AMFG",
+      title: "Middle Fullstack Software Engineer",
+      date: "December 2021 - May 2023",
       bullets:
-        "Built developer tools and internal platform workflows for high-throughput product teams.",
+        "Built a custom Gantt timeline with drag-and-drop task management, zoom levels, real-time sync, and conflict detection.\nWorked on a large workflow automation system supporting event triggers and 10+ follow-up actions across email, push, and status changes.",
+    },
+    {
+      company: "AMFG",
+      title: "Junior Fullstack Software Engineer",
+      date: "October 2020 - November 2021",
+      bullets:
+        "Started full-time engineering career while balancing with university. Building core collaboration skills.",
     },
   ],
   projects: [
     {
-      name: "AI-Powered Market Predictor",
-      stack: "Python, TensorFlow",
+      name: "Mellow Lines",
+      stack: "TypeScript, Canvas, Shiki, FFmpeg WASM",
       description:
-        "Built a forecasting workflow for real-time data streams and reduced error by 20%.",
+        "A code animation studio that turns code snippets into cinematic videos entirely in the browser.",
     },
     {
-      name: "Decentralized Data Exchange",
-      stack: "Solidity, cryptography",
+      name: "Mellow fmt",
+      stack: "Next.js, TypeScript, formatting tooling",
       description:
-        "Created a secure data sharing platform with verifiable permissions.",
+        "An interactive playground for exploring and comparing Prettier and Oxfmt formatting options.",
     },
     {
-      name: "Optimized Core Transactions",
-      stack: "React, Node.js",
+      name: "Alex Posts",
+      stack: "Technical writing, PostgreSQL, React, JavaScript",
       description:
-        "Refactored processing and optimization work on a high-throughput platform.",
+        "A technical blog with deep dives into database internals, React mechanics, and JavaScript tooling.",
     },
   ],
   education:
-    "BSc. Computer Science\nUC Berkeley\nAWS Certified DevOps Engineer\nKubernetes Certified Administrator",
-  awards:
-    "Google Developer Expert (AI/ML) 2025\nApex Labs Tech Innovation Award 2025\nApex Labs Tech Innovation Award 2023",
+    "National Technical University of Ukraine “Igor Sikorsky Kyiv Polytechnic Institute”\nFaculty of Informatics and Computer Engineering\nBachelor Degree, Computer Engineering, 2017 - 2021",
+  awards: "",
   skills:
-    "Languages: Python, Go, Rust, TypeScript\nFrameworks: React, Node.js, TensorFlow, Docker, K8s\nTools: AWS, Git, Figma",
+    "Languages: TypeScript, JavaScript, SQL, Python\nFrontend: React, Next.js, Tailwind CSS, shadcn/ui, Angular migration\nBackend: Node.js, PostgreSQL, pgvector, sandboxed scripting\nTooling: Bun, pnpm, oxlint, oxfmt, ESLint, Prettier\nPlatform: Vercel, AWS",
   taste:
-    "Functional programming, distributed systems, quiet interfaces, developer tools, technical writing",
-  inspirations:
-    "The Pragmatic Engineer\nByteByteGo\nStrangeloop talks\nDan Abramov\nBret Victor",
+    "React, TypeScript, Next.js, PostgreSQL, Bun, Vercel, TanStack, Drizzle, shadcn/ui, Tailwind CSS, AI-assisted engineering",
+  inspirations: "OpenAI\nAnthropic\nshadcn\nNext.js\nTanStack Start\nMellow software interfaces",
   sections: {
     about: true,
-    awards: true,
+    awards: false,
     taste: true,
     inspirations: true,
     education: true,
     portfolio: true,
     skills: true,
   },
-}
+};
 
 export const sectionLabels: Record<SectionKey, string> = {
   about: "Additional Info",
@@ -148,43 +154,35 @@ export const sectionLabels: Record<SectionKey, string> = {
   education: "Education",
   portfolio: "QR",
   skills: "Skills",
-}
+};
 
 export function lines(value: string) {
   return value
     .split("\n")
     .map((line) => line.trim())
-    .filter(Boolean)
+    .filter(Boolean);
 }
 
 export function parseNameFontSize(value: string) {
-  const parsed = Number.parseFloat(value)
-  return Number.isFinite(parsed) ? parsed : 2.85
+  const parsed = Number.parseFloat(value);
+  return Number.isFinite(parsed) ? parsed : 2.85;
 }
 
 export function socialBadge(label: string, url: string) {
-  const source = `${label} ${url}`.toLowerCase()
+  const source = `${label} ${url}`.toLowerCase();
 
   if (source.includes("linkedin")) {
-    return "in"
+    return "in";
   }
 
-  if (
-    source.includes("github") ||
-    source.includes("gitlab") ||
-    source.includes("bitbucket")
-  ) {
-    return "gh"
+  if (source.includes("github") || source.includes("gitlab") || source.includes("bitbucket")) {
+    return "gh";
   }
 
-  if (
-    source.includes("twitter") ||
-    source.includes("x.com") ||
-    source.includes("x /")
-  ) {
-    return "x"
+  if (source.includes("twitter") || source.includes("x.com") || source.includes("x /")) {
+    return "x";
   }
 
-  const compact = label.replace(/[^a-z0-9]/gi, "").slice(0, 2)
-  return compact ? compact.toLowerCase() : "ln"
+  const compact = label.replace(/[^a-z0-9]/gi, "").slice(0, 2);
+  return compact ? compact.toLowerCase() : "ln";
 }
