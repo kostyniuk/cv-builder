@@ -50,7 +50,7 @@ export function ExperienceEditor({
               <Minus />
             </Button>
           </div>
-          <div className="grid gap-3 md:grid-cols-[1fr_1fr]">
+          <div className="grid gap-3 xl:grid-cols-[0.8fr_1.1fr_0.75fr_2fr]">
             <TextField
               label="Company"
               value={item.company}
@@ -61,18 +61,18 @@ export function ExperienceEditor({
               value={item.title}
               onChange={(value) => onUpdate(index, "title", value)}
             />
+            <TextField
+              label="Date"
+              value={item.date}
+              onChange={(value) => onUpdate(index, "date", value)}
+            />
+            <TextField
+              label="Bullets"
+              value={item.bullets}
+              onChange={(value) => onUpdate(index, "bullets", value)}
+              multiline
+            />
           </div>
-          <TextField
-            label="Date"
-            value={item.date}
-            onChange={(value) => onUpdate(index, "date", value)}
-          />
-          <TextField
-            label="Bullets"
-            value={item.bullets}
-            onChange={(value) => onUpdate(index, "bullets", value)}
-            multiline
-          />
         </div>
       ))}
     </section>

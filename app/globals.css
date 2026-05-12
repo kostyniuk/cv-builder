@@ -210,8 +210,20 @@
   background: rgb(255 253 245 / 52%);
 }
 
-.form-block-grid > :last-child:nth-child(odd) {
-  grid-column: 1 / -1;
+@media (min-width: 48rem) and (max-width: 79.999rem) {
+  .form-block-grid > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 80rem) {
+  .form-block-grid > :last-child:nth-child(3n + 1) {
+    grid-column: 1 / -1;
+  }
+
+  .form-block-grid > :last-child:nth-child(3n + 2) {
+    grid-column: span 2;
+  }
 }
 
 .cv-header {

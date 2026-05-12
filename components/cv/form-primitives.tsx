@@ -14,7 +14,9 @@ export function FormBlock({
   return (
     <section className="grid gap-3">
       <FormTitle>{title}</FormTitle>
-      <div className="form-block-grid grid gap-3 md:grid-cols-2">{children}</div>
+      <div className="form-block-grid grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+        {children}
+      </div>
     </section>
   )
 }
@@ -33,15 +35,19 @@ export function TextField({
   onChange,
   multiline = false,
   wide = false,
+  className = "",
 }: {
   label: string
   value: string
   onChange: (value: string) => void
   multiline?: boolean
   wide?: boolean
+  className?: string
 }) {
   return (
-    <div className={wide ? "grid gap-1.5 md:col-span-2" : "grid gap-1.5"}>
+    <div
+      className={`${wide ? "grid gap-1.5 md:col-span-2 xl:col-span-3" : "grid gap-1.5"} ${className}`.trim()}
+    >
       <Label className="font-mono text-[11px] tracking-[0.12em] text-black/60 uppercase">
         {label}
       </Label>

@@ -9,6 +9,7 @@ import { ExperienceSection } from "@/components/cv/experience-section"
 import { FooterSections } from "@/components/cv/footer-sections"
 import {
   FormBlock,
+  FormTitle,
   TextField,
 } from "@/components/cv/form-primitives"
 import { MiddleSections } from "@/components/cv/middle-sections"
@@ -109,56 +110,87 @@ export default function Page() {
 
   return (
     <main className="cv-app min-h-svh px-4 py-5 text-[#111] sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-[1720px] gap-5 xl:grid-cols-[640px_minmax(0,1fr)]">
-        <section className="no-print cv-panel border border-black/15 bg-[#f4f1e8]/90 p-4 shadow-[8px_8px_0_rgba(15,15,15,0.08)] backdrop-blur md:p-5">
+      <div className="mx-auto flex max-w-[1720px] flex-col gap-6">
+        <section className="print-area flex min-w-0 justify-center self-center">
+          <article className="cv-sheet relative w-full max-w-[930px] overflow-hidden border border-black/20 bg-[#fbfaf4] p-8 text-[#111] shadow-[0_20px_80px_rgba(12,10,3,0.18)] sm:p-8">
+            <div className="corner corner-tl" />
+            <div className="corner corner-tr" />
+            <div className="corner corner-bl" />
+            <div className="corner corner-br" />
+
+            <CvHeader data={data} />
+            <SummarySection summary={data.summary} />
+            <ExperienceSection experience={data.experience} />
+            <ProjectsSection projects={data.projects} />
+            <MiddleSections sections={middleSections} data={data} />
+            <FooterSections sections={footerSections} data={data} />
+          </article>
+        </section>
+
+        <section className="no-print cv-panel w-full border border-black/15 bg-[#f4f1e8]/90 p-4 shadow-[8px_8px_0_rgba(15,15,15,0.08)] backdrop-blur md:p-5">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <h1 className="text-2xl font-black tracking-normal">
+              <p className="font-mono text-[10px] tracking-[0.22em] text-[#1f32b7] uppercase">
+                Builder controls
+              </p>
+              <h1 className="mt-1 text-2xl font-black tracking-normal">
                 One-page CV Builder
               </h1>
             </div>
-            <Button
-              variant="outline"
-              size="icon"
-              aria-label="Reset form"
-              title="Reset form"
-              onClick={() => setData(initialData)}
-              className="border-black/25 bg-[#fbfaf4]"
-            >
-              <RotateCcw />
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="icon"
+                aria-label="Reset form"
+                title="Reset form"
+                onClick={() => setData(initialData)}
+                className="border-black/25 bg-[#fbfaf4]"
+              >
+                <RotateCcw />
+              </Button>
+              <Button
+                className="rounded-none bg-[#111] font-mono text-xs tracking-[0.16em] text-white uppercase hover:bg-[#1f32b7]"
+                onClick={() => window.print()}
+              >
+                <Download />
+                Download PDF
+              </Button>
+            </div>
           </div>
 
           <Separator className="my-4 bg-black/20" />
 
-          <div className="grid gap-5">
-            <FormBlock title="Identity">
-              <TextField
-                label="Name"
-                value={data.name}
-                onChange={(value) => updateField("name", value)}
-              />
-              <TextField
-                label="Name size (rem)"
-                value={data.nameFontSize}
-                onChange={(value) => updateField("nameFontSize", value)}
-              />
-              <TextField
-                label="Email"
-                value={data.email}
-                onChange={(value) => updateField("email", value)}
-              />
-              <TextField
-                label="Phone"
-                value={data.phone}
-                onChange={(value) => updateField("phone", value)}
-              />
-              <TextField
-                label="Role"
-                value={data.role}
-                onChange={(value) => updateField("role", value)}
-              />
-            </FormBlock>
+          <div className="grid gap-6">
+            <section className="grid gap-3">
+              <FormTitle>Identity</FormTitle>
+              <div className="grid gap-3 xl:grid-cols-[1.35fr_0.5fr_1.35fr_0.8fr_1.35fr]">
+                <TextField
+                  label="Name"
+                  value={data.name}
+                  onChange={(value) => updateField("name", value)}
+                />
+                <TextField
+                  label="Name size (rem)"
+                  value={data.nameFontSize}
+                  onChange={(value) => updateField("nameFontSize", value)}
+                />
+                <TextField
+                  label="Email"
+                  value={data.email}
+                  onChange={(value) => updateField("email", value)}
+                />
+                <TextField
+                  label="Phone"
+                  value={data.phone}
+                  onChange={(value) => updateField("phone", value)}
+                />
+                <TextField
+                  label="Role"
+                  value={data.role}
+                  onChange={(value) => updateField("role", value)}
+                />
+              </div>
+            </section>
 
             <FormBlock title="Contact">
               <TextField
@@ -205,6 +237,12 @@ export default function Page() {
               onUpdate={updateSocialLink}
             />
 
+            <SectionsEditor
+              sections={data.sections}
+              sectionLabels={sectionLabels}
+              onToggle={toggleSection}
+            />
+
             <ExperienceEditor
               experience={data.experience}
               onAdd={() =>
@@ -243,38 +281,8 @@ export default function Page() {
               onUpdate={updateProject}
             />
 
-            <SectionsEditor
-              sections={data.sections}
-              sectionLabels={sectionLabels}
-              onToggle={toggleSection}
-            />
-
             <SignalEditor data={data} onUpdateField={updateField} />
           </div>
-
-          <Button
-            className="mt-5 w-full rounded-none bg-[#111] font-mono text-xs tracking-[0.16em] text-white uppercase hover:bg-[#1f32b7]"
-            onClick={() => window.print()}
-          >
-            <Download />
-            Download PDF
-          </Button>
-        </section>
-
-        <section className="print-area flex min-w-0 justify-center self-start">
-          <article className="cv-sheet relative w-full max-w-[930px] overflow-hidden border border-black/20 bg-[#fbfaf4] p-8 text-[#111] shadow-[0_20px_80px_rgba(12,10,3,0.18)] sm:p-8">
-            <div className="corner corner-tl" />
-            <div className="corner corner-tr" />
-            <div className="corner corner-bl" />
-            <div className="corner corner-br" />
-
-            <CvHeader data={data} />
-            <SummarySection summary={data.summary} />
-            <ExperienceSection experience={data.experience} />
-            <ProjectsSection projects={data.projects} />
-            <MiddleSections sections={middleSections} data={data} />
-            <FooterSections sections={footerSections} data={data} />
-          </article>
         </section>
       </div>
     </main>

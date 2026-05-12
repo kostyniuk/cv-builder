@@ -50,7 +50,7 @@ export function ProjectsEditor({
               <Minus />
             </Button>
           </div>
-          <div className="grid gap-3 md:grid-cols-[1fr_1fr]">
+          <div className="grid gap-3 lg:grid-cols-[0.85fr_1.15fr_1fr_2fr]">
             <TextField
               label="Name"
               value={item.name}
@@ -61,20 +61,18 @@ export function ProjectsEditor({
               value={item.url}
               onChange={(value) => onUpdate(index, "url", value)}
             />
-          </div>
-          <div className="grid gap-3 md:grid-cols-[1fr]">
             <TextField
               label="Stack"
               value={item.stack}
               onChange={(value) => onUpdate(index, "stack", value)}
             />
+            <TextField
+              label="Description"
+              value={item.description}
+              onChange={(value) => onUpdate(index, "description", value)}
+              multiline
+            />
           </div>
-          <TextField
-            label="Description"
-            value={item.description}
-            onChange={(value) => onUpdate(index, "description", value)}
-            multiline
-          />
         </div>
       ))}
     </section>
