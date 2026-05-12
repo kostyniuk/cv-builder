@@ -103,8 +103,7 @@ export const initialData: CvData = {
       company: "AMFG",
       title: "Junior Fullstack Software Engineer",
       date: "October 2020 - November 2021",
-      bullets:
-        "Started full-time engineering career while balancing with university. Building core collaboration skills.",
+      bullets: "",
     },
   ],
   projects: [
@@ -131,10 +130,10 @@ export const initialData: CvData = {
     "National Technical University of Ukraine “Igor Sikorsky Kyiv Polytechnic Institute”\nFaculty of Informatics and Computer Engineering\nBachelor Degree, Computer Engineering, 2017 - 2021",
   awards: "",
   skills:
-    "Languages: TypeScript, JavaScript, SQL, Python\nFrontend: React, Next.js, Tailwind CSS, shadcn/ui, Angular migration\nBackend: Node.js, PostgreSQL, pgvector, sandboxed scripting\nTooling: Bun, pnpm, oxlint, oxfmt, ESLint, Prettier\nPlatform: Vercel, AWS",
-  taste:
-    "React, TypeScript, Next.js, PostgreSQL, Bun, Vercel, TanStack, Drizzle, shadcn/ui, Tailwind CSS, AI-assisted engineering",
-  inspirations: "OpenAI\nAnthropic\nshadcn\nNext.js\nTanStack Start\nMellow software interfaces",
+    "Languages: TypeScript, JavaScript, SQL\nFrontend: React, all Tanstack, Next.js, Tailwind CSS, shadcn/ui\nBackend: Node.js, Bun, PostgreSQL\nTooling: oxc",
+  taste: "TypeScript, Next.js, Bun, Vercel, TanStack, Drizzle, shadcn/ui, OpenAI, T3 Code",
+  inspirations:
+    "Theo\nTanner Linsley\nGuillermo Rauch\nLee Robinson\nOrcDev\nshadcn\nVercel\nPlanetscale\nCursor\nLovable",
   sections: {
     about: true,
     awards: false,

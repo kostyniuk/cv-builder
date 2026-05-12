@@ -22,10 +22,12 @@ export function ExperienceSection({
             </div>
             <div className="timeline-node" />
             <div>
-              <h3 className="font-mono text-sm font-bold">{item.company}</h3>
-              {item.title ? (
-                <p className="font-mono text-[11px] uppercase">{item.title}</p>
-              ) : null}
+              <h3 className="font-mono text-sm font-bold">
+                {item.company}
+                {item.title ? (
+                  <span className="font-normal"> | {item.title}</span>
+                ) : null}
+              </h3>
             </div>
             <ul className="mt-1 list-disc space-y-1 pl-5 font-mono text-[11px] leading-tight">
               {lines(item.bullets).map((line) => (

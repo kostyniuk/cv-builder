@@ -16,29 +16,10 @@ export function MiddleSections({
   }
 
   return (
-    <div className="cv-two-column cv-dynamic-grid grid gap-5" data-count={sections.length}>
-      {sections.includes("about") ? (
-        <section className="cv-section">
-          <SectionTitle>Additional Info</SectionTitle>
-          <div className="border-t border-black/20 pt-3 font-mono text-[11px] leading-tight">
-            {lines(data.about).map((line) => (
-              <p key={line}>{line}</p>
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      {sections.includes("taste") ? (
-        <section className="cv-section">
-          <SectionTitle>Technical & Cultural Taste</SectionTitle>
-          <div className="border-t border-black/20 pt-3 font-mono text-[11px] leading-tight">
-            {lines(data.taste).map((taste) => (
-              <p key={taste}>{taste}</p>
-            ))}
-          </div>
-        </section>
-      ) : null}
-
+    <div
+      className="cv-middle-sections cv-two-column cv-dynamic-grid grid"
+      data-count={sections.length}
+    >
       {sections.includes("inspirations") ? (
         <section className="cv-section">
           <SectionTitle>People, Channels & Sources</SectionTitle>
@@ -51,6 +32,28 @@ export function MiddleSections({
                 </span>
               ))}
             </p>
+          </div>
+        </section>
+      ) : null}
+
+      {sections.includes("taste") ? (
+        <section className="cv-section">
+          <SectionTitle>Technical & Cultural Taste</SectionTitle>
+          <div className="font-mono text-[11px] leading-tight">
+            {lines(data.taste).map((taste) => (
+              <p key={taste}>{taste}</p>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {sections.includes("about") ? (
+        <section className="cv-section">
+          <SectionTitle>Additional Info</SectionTitle>
+          <div className="border-t border-black/20 pt-3 font-mono text-[11px] leading-tight">
+            {lines(data.about).map((line) => (
+              <p key={line}>{line}</p>
+            ))}
           </div>
         </section>
       ) : null}
