@@ -37,7 +37,7 @@ export function PortfolioQrCode({ value }: PortfolioQrCodeProps) {
   return (
     <a
       href={normalizeUrl(value)}
-      className="portfolio-qr my-2 block"
+      className="portfolio-qr block"
       aria-label={`Open portfolio ${value}`}
     >
       {qrCode ? <img src={qrCode} alt="" /> : <span />}

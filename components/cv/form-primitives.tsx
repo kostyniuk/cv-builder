@@ -78,7 +78,7 @@ export function SectionTitle({ children }: { children: ReactNode }) {
 
 export function MiniTitle({ children }: { children: ReactNode }) {
   return (
-    <h4 className="mb-3 flex items-center gap-2 font-mono text-[10px] tracking-[0.1em] uppercase">
+    <h4 className="mb-2 flex items-center gap-2 font-mono text-[10px] tracking-[0.1em] uppercase">
       <span className="size-2 bg-[#1f32b7]" />
       {children}
     </h4>

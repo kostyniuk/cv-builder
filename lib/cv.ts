@@ -70,7 +70,7 @@ export const initialData: CvData = {
   location: "Stockholm, Sweden",
   website: "a13x.space",
   summary:
-    "Team Lead and fullstack engineer focused on frontend modernization, backend platform work, performance improvements, and developer experience. I care about shipping durable systems that reduce complexity, improve iteration speed, and make teams more effective.",
+    "Product Engineer focused on solving customer problems. Spending a lot of time discussing solutions with Business and UI design teams to deliver the best outcome. Having a lot of fun orchestrating AI agents to both write and review code, drastically improving my performance and the quality of code I produce. Learning new technologies, trying to get better each day",
   about:
     "Strong bias toward shipping and simplifying systems. Interested in AI-assisted engineering workflows, UI architecture, internal platform improvements, and practical automation that removes friction for both teams and customers.",
   socialLinks: [

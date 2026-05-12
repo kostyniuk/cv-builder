@@ -36,16 +36,18 @@ export function FooterSections({
       {sections.includes("portfolio") ? (
         <div className="font-mono text-[10px] leading-tight uppercase">
           <MiniTitle>Portfolio QR Code</MiniTitle>
-          <PortfolioQrCode value={data.website} />
-          <a
-            href={normalizeUrl(data.website)}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2"
-          >
-            <Link2 className="size-3" />
-            {data.website}
-          </a>
+          <div className="portfolio-qr-block">
+            <PortfolioQrCode value={data.website} />
+            <a
+              href={normalizeUrl(data.website)}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2"
+            >
+              <Link2 className="size-3" />
+              {data.website}
+            </a>
+          </div>
         </div>
       ) : null}
 

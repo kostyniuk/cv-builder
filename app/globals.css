@@ -281,7 +281,7 @@
 }
 
 .cv-footer {
-  grid-template-columns: 1.15fr 130px 1fr;
+  grid-template-columns: 1.15fr 80px 1.15fr;
 }
 
 .cv-footer[data-count="1"] {
@@ -293,7 +293,7 @@
 }
 
 .cv-footer[data-count="3"] {
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 135px 1fr;
 }
 
 .corner {
@@ -349,8 +349,19 @@
 .portfolio-qr {
   width: 74px;
   height: 74px;
+  margin-inline: auto;
   border: 1px solid rgba(0, 0, 0, 0.3);
   background: #fbfaf4;
+}
+
+.portfolio-qr-block {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.portfolio-qr-block > a {
+  justify-self: center;
 }
 
 .portfolio-qr img,
@@ -533,7 +544,7 @@
 
   .cv-footer {
     display: grid !important;
-    grid-template-columns: 1.15fr 130px 1fr !important;
+    grid-template-columns: 1.15fr 80px 1.15fr !important;
   }
 
   .cv-footer[data-count="1"] {
@@ -545,7 +556,7 @@
   }
 
   .cv-footer[data-count="3"] {
-    grid-template-columns: 1fr 1fr 1fr !important;
+    grid-template-columns: 1fr 135px 1fr !important;
   }
 
   .cv-name {
