@@ -42,10 +42,15 @@ export function MiddleSections({
       {sections.includes("inspirations") ? (
         <section className="cv-section">
           <SectionTitle>People, Channels & Sources</SectionTitle>
-          <div className="space-y-1 font-mono text-[11px] leading-tight">
-            {lines(data.inspirations).map((line) => (
-              <p key={line}>{line}</p>
-            ))}
+          <div className="font-mono text-[11px] leading-tight">
+            <p>
+              {lines(data.inspirations).map((line, index, items) => (
+                <span key={line}>
+                  {line}
+                  {index < items.length - 1 ? " · " : ""}
+                </span>
+              ))}
+            </p>
           </div>
         </section>
       ) : null}

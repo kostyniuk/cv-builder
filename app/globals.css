@@ -230,6 +230,11 @@
   grid-template-columns: 1fr;
 }
 
+.cv-dynamic-grid[data-count="3"] > :last-child,
+.cv-dynamic-grid[data-count="5"] > :last-child {
+  grid-column: 1 / -1;
+}
+
 .cv-footer {
   grid-template-columns: 1.15fr 130px 1fr;
 }
@@ -455,6 +460,11 @@
 
   .cv-dynamic-grid[data-count="1"] {
     grid-template-columns: 1fr !important;
+  }
+
+  .cv-dynamic-grid[data-count="3"] > :last-child,
+  .cv-dynamic-grid[data-count="5"] > :last-child {
+    grid-column: 1 / -1 !important;
   }
 
   .cv-footer {
