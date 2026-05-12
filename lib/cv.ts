@@ -105,10 +105,18 @@ export const initialData: CvData = {
       company: "AMFG",
       title: "Junior Fullstack Software Engineer",
       date: "October 2020 - November 2021",
-      bullets: "",
+      bullets:
+        "Adjusting to full-time engineering work while balancing university and building communication skills.",
     },
   ],
   projects: [
+    {
+      name: "GlassCN",
+      url: "https://glasscn-components.vercel.app/",
+      stack: "shadcn/ui, glassmorphism, component library",
+      description:
+        "A library of Apple-like glass components for shadcn/ui, with 20+ glass-styled primitives, 5 glass effect variants for dark and light themes, Apple-inspired translucent surfaces, and SVG-based physical refraction for realistic light bending through thick glass.",
+    },
     {
       name: "Mellow Lines",
       url: "https://mellowlines.dev",
