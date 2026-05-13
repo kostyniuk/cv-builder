@@ -20,6 +20,7 @@ import { SignalEditor } from "@/components/cv/signal-editor"
 import { SocialLinksEditor } from "@/components/cv/social-links-editor"
 import { SummarySection } from "@/components/cv/summary-section"
 import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import {
   blankExperience,
@@ -111,6 +112,52 @@ export default function Page() {
   return (
     <main className="cv-app min-h-svh px-4 py-5 text-[#111] sm:px-6 lg:px-8">
       <div className="mx-auto flex max-w-[1720px] flex-col gap-6">
+        <section className="no-print flex flex-col gap-2 border-b border-black/10 pb-1">
+          <div className="flex flex-col gap-1 sm:gap-2">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+              <div className="flex items-center gap-2">
+                <Label className="w-fit border border-black/15 bg-[#fbfaf4]/80 px-2 py-1 font-mono text-[10px] tracking-[0.18em] text-[#1f32b7] uppercase">
+                  LeeHireMe
+                </Label>
+                <h1 className="text-lg font-black tracking-tight sm:text-xl">
+                  One-page CV Builder
+                </h1>
+              </div>
+              <div className="flex flex-wrap items-center justify-end gap-2 gap-y-1">
+                <a
+                  href="https://x.com/kostyniuk00"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-mono text-[10px] tracking-[0.12em] text-black/60 uppercase transition-colors hover:text-[#1f32b7]"
+                >
+                  X: @kostyniuk00
+                </a>
+                <a
+                  href="https://github.com/kostyniuk"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-mono text-[10px] tracking-[0.12em] text-black/60 uppercase transition-colors hover:text-[#1f32b7]"
+                >
+                  GitHub: @kostyniuk
+                </a>
+                <a
+                  href="https://github.com/kostyniuk/cv-builder"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-mono text-[10px] tracking-[0.12em] text-black/60 uppercase transition-colors hover:text-[#1f32b7]"
+                >
+                  Repo: github.com/kostyniuk/cv-builder
+                </a>
+              </div>
+            </div>
+            <div>
+              <p className="text-xs text-black/62 sm:text-sm">
+                Scroll down to fill the form, then print or save as PDF.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section className="print-area flex min-w-0 justify-center self-center">
           <article className="cv-sheet relative w-full overflow-hidden border border-black/20 bg-[#fbfaf4] text-[#111] shadow-[0_20px_80px_rgba(12,10,3,0.18)]">
             <div className="corner corner-tl" />
