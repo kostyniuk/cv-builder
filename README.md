@@ -2,6 +2,9 @@
 
 Single-page CV/resume builder built with Next.js 16, React 19, Tailwind CSS 4, and shadcn-style UI primitives. The app renders a print-friendly resume preview and an inline editor so you can adjust content, toggle sections, and export to PDF from the browser.
 
+<img width="630" height="877" alt="Screenshot 2026-05-13 at 6 50 16 PM" src="https://github.com/user-attachments/assets/7f94689f-9c88-4972-9682-bcd3f81d0ac7" />
+
+
 ## What it does
 
 - Live-edit core CV fields: identity, contact info, summary, social links, experience, and projects
