@@ -491,10 +491,6 @@
     break-inside: avoid !important;
   }
 
-  .cv-sheet-inner {
-    zoom: 1.006;
-  }
-
   .cv-header,
   .cv-contact-grid,
   .cv-two-column {
@@ -561,7 +557,7 @@
 
   .cv-name {
     max-width: 540px !important;
-    font-size: 2.85rem !important;
+    font-size: var(--cv-name-size) !important;
     line-height: 0.82 !important;
     white-space: nowrap !important;
     word-break: normal !important;

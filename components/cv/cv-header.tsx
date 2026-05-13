@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react"
+
 import { Globe } from "lucide-react"
 
 import { normalizeUrl } from "@/lib/url"
@@ -17,7 +19,10 @@ export function CvHeader({ data }: CvHeaderProps) {
       <div>
         <h2
           className="cv-name leading-[0.82] font-black tracking-[-0.04em]"
-          style={{ fontSize: `${parseNameFontSize(data.nameFontSize)}rem` }}
+          style={{
+            "--cv-name-size": `${parseNameFontSize(data.nameFontSize)}rem`,
+            fontSize: "var(--cv-name-size)",
+          } as CSSProperties}
         >
           {data.name || "alex"}
         </h2>
