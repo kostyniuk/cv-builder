@@ -112,13 +112,13 @@ export default function Page() {
   return (
     <main className="cv-app min-h-svh px-4 py-5 text-[#111] sm:px-6 lg:px-8">
       <div className="mx-auto flex max-w-[1720px] flex-col gap-6">
-        <section className="no-print flex flex-col gap-2 border-b border-black/10 pb-1">
+        <section className="no-print flex flex-col gap-2 border-b border-black/10 pb-2">
           <div className="flex flex-col gap-1 sm:gap-2">
             <div className="grid gap-3 xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-6 xl:items-start">
               <div className="flex flex-col gap-2">
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
-                    <h1 className="text-lg font-black tracking-tight sm:text-xl">
+                    <h1 className="text-xl font-black tracking-tight sm:text-2xl">
                       One-page CV Builder
                     </h1>
                     <Label className="w-fit border border-black/15 bg-[#fbfaf4]/80 px-2 py-1 font-mono text-[10px] tracking-[0.18em] text-[#1f32b7] uppercase">
@@ -136,11 +136,7 @@ export default function Page() {
                   Why use this?
                 </p>
                 <p className="mt-1 text-[11px] leading-4 text-black/68 sm:text-xs">
-                  Most people do not care enough to read a bloated CV. Bigger is
-                  not better. If you can fit it into one page, it is easier to
-                  scan, easier to remember, and far more likely to actually get
-                  read than a 2 or 3 page wall of text.
-                </p>
+                  Nobody wants to read your CV. Keep it to one page and they might. Go over, and you've already lost them. Your CV is your foot in the door, make it easy to read or it won't open. But it's not just about readable - it's about revealing. Your taste in tools, who you follow, what you care about. That stuff signals culture fit faster than any cover letter. Skills get you considered, fit gets you hired.                </p>
               </div>
 
               <div className="flex flex-col items-start gap-1 xl:items-end">
