@@ -50,7 +50,9 @@ export const metadata: Metadata = {
     url: SITE_URL,
     images: [
       {
-        url: "/logo-tranparent.svg",
+        url: "/logo-tranparent.png",
+        width: 256,
+        height: 256,
         alt: "One-page CV Builder logo",
       },
     ],
@@ -59,7 +61,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: ["/logo-tranparent.svg"],
+    images: ["/logo-tranparent.png"],
   },
 }
 
