@@ -114,21 +114,41 @@ export default function Page() {
       <div className="mx-auto flex max-w-[1720px] flex-col gap-6">
         <section className="no-print flex flex-col gap-2 border-b border-black/10 pb-1">
           <div className="flex flex-col gap-1 sm:gap-2">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-              <div className="flex items-center gap-2">
-                <Label className="w-fit border border-black/15 bg-[#fbfaf4]/80 px-2 py-1 font-mono text-[10px] tracking-[0.18em] text-[#1f32b7] uppercase">
-                  LeeHireMe
-                </Label>
-                <h1 className="text-lg font-black tracking-tight sm:text-xl">
-                  One-page CV Builder
-                </h1>
+            <div className="grid gap-3 xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-6 xl:items-start">
+              <div className="flex flex-col gap-2">
+                <div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h1 className="text-lg font-black tracking-tight sm:text-xl">
+                      One-page CV Builder
+                    </h1>
+                    <Label className="w-fit border border-black/15 bg-[#fbfaf4]/80 px-2 py-1 font-mono text-[10px] tracking-[0.18em] text-[#1f32b7] uppercase">
+                      LeeHireMe
+                    </Label>
+                  </div>
+                  <p className="text-xs text-black/62 sm:text-sm">
+                    Scroll down to fill the form, then print or save as PDF.
+                  </p>
+                </div>
               </div>
-              <div className="flex flex-wrap items-center justify-end gap-2 gap-y-1">
+
+              <div className="border border-black/12 bg-[#fbfaf4]/70 px-3 py-2 shadow-[4px_4px_0_rgba(15,15,15,0.04)] xl:w-full">
+                <p className="font-mono text-[10px] tracking-[0.16em] text-[#1f32b7] uppercase">
+                  Why use this?
+                </p>
+                <p className="mt-1 text-[11px] leading-4 text-black/68 sm:text-xs">
+                  Most people do not care enough to read a bloated CV. Bigger is
+                  not better. If you can fit it into one page, it is easier to
+                  scan, easier to remember, and far more likely to actually get
+                  read than a 2 or 3 page wall of text.
+                </p>
+              </div>
+
+              <div className="flex flex-col items-start gap-1 xl:items-end">
                 <a
                   href="https://x.com/kostyniuk00"
                   target="_blank"
                   rel="noreferrer"
-                  className="font-mono text-[10px] tracking-[0.12em] text-black/60 uppercase transition-colors hover:text-[#1f32b7]"
+                  className="font-mono text-[10px] tracking-[0.12em] text-black/60 uppercase transition-colors hover:text-[#1f32b7] xl:text-right"
                 >
                   X: @kostyniuk00
                 </a>
@@ -136,24 +156,19 @@ export default function Page() {
                   href="https://github.com/kostyniuk"
                   target="_blank"
                   rel="noreferrer"
-                  className="font-mono text-[10px] tracking-[0.12em] text-black/60 uppercase transition-colors hover:text-[#1f32b7]"
+                  className="font-mono text-[10px] tracking-[0.12em] text-black/60 uppercase transition-colors hover:text-[#1f32b7] xl:text-right"
                 >
                   GitHub: @kostyniuk
                 </a>
                 <a
-                  href="https://github.com/kostyniuk/cv-builder"
+                  href="https://github.com/kostyniuk/lee-hire-me"
                   target="_blank"
                   rel="noreferrer"
-                  className="font-mono text-[10px] tracking-[0.12em] text-black/60 uppercase transition-colors hover:text-[#1f32b7]"
+                  className="font-mono text-[10px] tracking-[0.12em] text-black/60 uppercase transition-colors hover:text-[#1f32b7] xl:text-right"
                 >
-                  Repo: github.com/kostyniuk/cv-builder
+                  Repo: github.com/kostyniuk/lee-hire-me
                 </a>
               </div>
-            </div>
-            <div>
-              <p className="text-xs text-black/62 sm:text-sm">
-                Scroll down to fill the form, then print or save as PDF.
-              </p>
             </div>
           </div>
         </section>
