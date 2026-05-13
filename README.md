@@ -43,23 +43,23 @@ npm run typecheck
 
 ## How the app is organized
 
-- [app/page.tsx](/Users/kostyniuk/engineering/next/cv-builder/app/page.tsx) contains the main builder UI and preview composition
-- [lib/cv.ts](/Users/kostyniuk/engineering/next/cv-builder/lib/cv.ts) defines the CV types, default data, blank item templates, and helper utilities
-- [components/cv](/Users/kostyniuk/engineering/next/cv-builder/components/cv) contains the resume sections and editor panels
-- [components/ui](/Users/kostyniuk/engineering/next/cv-builder/components/ui) contains the shared UI primitives
-- [app/globals.css](/Users/kostyniuk/engineering/next/cv-builder/app/globals.css) holds the global styles and print/layout styling
+- [app/page.tsx](/Users/kostyniuk/engineering/next/lee-hire-me/app/page.tsx) contains the main builder UI and preview composition
+- [lib/cv.ts](/Users/kostyniuk/engineering/next/lee-hire-me/lib/cv.ts) defines the CV types, default data, blank item templates, and helper utilities
+- [components/cv](/Users/kostyniuk/engineering/next/lee-hire-me/components/cv) contains the resume sections and editor panels
+- [components/ui](/Users/kostyniuk/engineering/next/lee-hire-me/components/ui) contains the shared UI primitives
+- [app/globals.css](/Users/kostyniuk/engineering/next/lee-hire-me/app/globals.css) holds the global styles and print/layout styling
 
 ## Customization
 
-The default content ships from `initialData` in [lib/cv.ts](/Users/kostyniuk/engineering/next/cv-builder/lib/cv.ts). If you want the app to open with your own resume data, update that object.
+The default content ships from `initialData` in [lib/cv.ts](/Users/kostyniuk/engineering/next/lee-hire-me/lib/cv.ts). If you want the app to open with your own resume data, update that object.
 
 The builder currently stores changes in client state only. Reloading the page resets the form back to `initialData`.
 
 To adjust layout or styling:
 
-- Edit the preview composition in [app/page.tsx](/Users/kostyniuk/engineering/next/cv-builder/app/page.tsx)
-- Update section-specific rendering in [components/cv](/Users/kostyniuk/engineering/next/cv-builder/components/cv)
-- Tweak print and visual styling in [app/globals.css](/Users/kostyniuk/engineering/next/cv-builder/app/globals.css)
+- Edit the preview composition in [app/page.tsx](/Users/kostyniuk/engineering/next/lee-hire-me/app/page.tsx)
+- Update section-specific rendering in [components/cv](/Users/kostyniuk/engineering/next/lee-hire-me/components/cv)
+- Tweak print and visual styling in [app/globals.css](/Users/kostyniuk/engineering/next/lee-hire-me/app/globals.css)
 
 ## Exporting
 
