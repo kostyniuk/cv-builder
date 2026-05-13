@@ -50,18 +50,18 @@ export const metadata: Metadata = {
     url: SITE_URL,
     images: [
       {
-        url: "/logo-tranparent.png",
-        width: 256,
-        height: 256,
-        alt: "One-page CV Builder logo",
+        url: "/social-card.png",
+        width: 1200,
+        height: 630,
+        alt: "LeeHireMe social preview card",
       },
     ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: ["/logo-tranparent.png"],
+    images: ["/social-card.png"],
   },
 }
 
