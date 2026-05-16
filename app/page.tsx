@@ -209,7 +209,13 @@ export default function Page() {
               </Button>
               <Button
                 className="rounded-none bg-[#111] font-mono text-xs tracking-[0.16em] text-white uppercase hover:bg-[#1f32b7]"
-                onClick={() => window.print()}
+                onClick={() => {
+                  const originalTitle = document.title
+                  const formattedName = data.name.trim().replace(/\s+/g, "_")
+                  document.title = `CV_${formattedName}`
+                  window.print()
+                  document.title = originalTitle
+                }}
               >
                 <Download />
                 Download PDF
