@@ -1,6 +1,7 @@
 "use client"
 
 import { Download, RotateCcw } from "lucide-react"
+import { Suspense } from "react"
 import { useQueryState } from "nuqs"
 
 import { CvHeader } from "@/components/cv/cv-header"
@@ -35,7 +36,7 @@ import {
 } from "@/lib/cv"
 import { cvDataParser } from "@/lib/cv-query"
 
-export default function Page() {
+function PageContent() {
   const [data, setData] = useQueryState(
     "cv",
     cvDataParser.withDefault(initialData).withOptions({
@@ -365,5 +366,19 @@ export default function Page() {
         </section>
       </div>
     </main>
+  )
+}
+
+export default function Page() {
+  return (
+    <Suspense
+      fallback={
+        <main className="cv-app min-h-svh px-4 py-5 text-[#111] sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-[1720px] flex-col gap-6" />
+        </main>
+      }
+    >
+      <PageContent />
+    </Suspense>
   )
 }
