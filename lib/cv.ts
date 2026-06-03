@@ -69,10 +69,9 @@ export const initialData: CvData = {
   phone: "",
   location: "Stockholm, Sweden",
   website: "a13x.space",
-  summary:
-    "Product Engineer focused on solving customer problems. Spending a lot of time discussing solutions with Business and UI design teams to deliver the best outcome. Having a lot of fun orchestrating AI agents to both write and review code, drastically improving my performance and the quality of code I produce. Learning new technologies, trying to get better each day",
+  summary: "Product Engineer focused on solving customer problems. When I was a child I wanted to become a footballer, that was my passion and a goal. I still love football, but building things is my passion too, now. I love helping people and work in teams when we can achieve big goals together. Really like Agentic Workflows with AI. Love to build great architectures. When I was a teen, I thought that I would be a backend engineer because frontend is easy and not interesting, now I enjoy both, but frontend is ♥︎. I'm also active on Twitter if you like my tweets we can be friends 😅.",
   about:
-    "I like to create beautiful UIs, like to dress well, and like NBA and football. I'm a big dog lover - have one myself, named Theo. I used to run a lot, and had run a half-marathon back in the day. Trying to be happy and make people around me happy too.",
+    "I like to create beautiful UIs, like to dress well, and like NBA and football. I'm a big dog lover - have one myself, named Theo. I used to run and a lot, and had run a half-marathon back in the day. I love rap festivals, I was at Rolling Loud and others, saw Travis Scott, Playboi Carti and some more, planning on visiting more. Trying to be happy and make people around me happy too.",
   socialLinks: [
     { label: "LinkedIn", url: "https://www.linkedin.com/in/kostyniuk" },
     { label: "X / Twitter", url: "https://x.com/kostyniuk00" },
@@ -85,14 +84,14 @@ export const initialData: CvData = {
       title: "Team Lead",
       date: "May 2025 - Present",
       bullets:
-        "Leading architecture and delivery across frontend modernization, backend platform work, performance improvements, and team-wide developer experience initiatives while managing a team of 2-3 engineers.\nLed migration from Kendo to shadcn/ui and Tailwind CSS, improving iteration speed, developer experience, and UI consistency.\nBuilt a 3D model similarity engine using cosine similarity, vector embeddings, and pgvector in PostgreSQL.",
+        "Leading architecture and delivery across frontend modernization, backend platform work, performance improvements, and team-wide developer experience initiatives while managing a team of 2-3 engineers.\nLed migration from Kendo to shadcn/ui and Tailwind CSS, improving iteration speed & developer experience.\nBuilt a 3D model similarity engine using cosine similarity, vector embeddings, and pgvector in PostgreSQL.",
     },
     {
       company: "AMFG",
       title: "Senior Fullstack Software Engineer",
       date: "May 2023 - April 2025",
       bullets:
-        "Led team-wide adoption of AI-assisted engineering workflows, frontend modernization, and internal platform initiatives.\nArchitected a sandboxed scripting environment for customer Python and JavaScript automation against the platform API.\nConducted 50+ engineering interviews and helped shape team growth and hiring standards.",
+        "Led team-wide adoption of AI-assisted engineering workflows, frontend modernization.\nDeveloped a sandboxed scripting environment for customer Python and JavaScript action automations.\nConducted 50+ engineering interviews and helped shape team growth and hiring standards.",
     },
     {
       company: "AMFG",
@@ -144,9 +143,9 @@ export const initialData: CvData = {
   awards: "",
   skills:
     "Languages: TypeScript, JavaScript, SQL\nFrontend: React, all Tanstack, Next.js, Tailwind CSS, shadcn/ui\nBackend: Node.js, Bun, PostgreSQL\nTooling: oxc",
-  taste: "TypeScript, Next.js, Bun, Vercel, TanStack, Drizzle, shadcn/ui, OpenAI, T3 Code",
+  taste: "TypeScript, Next.js, Bun, Vercel, TanStack, Drizzle, shadcn, OpenAI, T3 Code",
   inspirations:
-    "Theo\nTanner Linsley\nGuillermo Rauch\nLee Robinson\nOrcDev\nshadcn\nVercel\nPlanetscale\nCursor\nLovable",
+    "Theo\nTanner Linsley\nGuillermo Rauch\nLee Robinson\nOrcDev\nshadcn\nOpenAI\nVercel\nPlanetscale\nCursor\nLovable",
   sections: {
     about: true,
     awards: false,
