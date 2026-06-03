@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
 import { Download, RotateCcw } from "lucide-react"
+import { useQueryState } from "nuqs"
 
 import { CvHeader } from "@/components/cv/cv-header"
 import { ExperienceEditor } from "@/components/cv/experience-editor"
@@ -33,9 +33,16 @@ import {
   type SectionKey,
   type SocialLink,
 } from "@/lib/cv"
+import { cvDataParser } from "@/lib/cv-query"
 
 export default function Page() {
-  const [data, setData] = useState<CvData>(initialData)
+  const [data, setData] = useQueryState(
+    "cv",
+    cvDataParser.withDefault(initialData).withOptions({
+      history: "replace",
+      shallow: true,
+    })
+  )
 
   const middleSections = [
     data.sections.about ? "about" : null,
@@ -114,7 +121,7 @@ export default function Page() {
       <div className="mx-auto flex max-w-[1720px] flex-col gap-6">
         <section className="no-print flex flex-col gap-2 border-b border-black/10 pb-2">
           <div className="flex flex-col gap-1 sm:gap-2">
-            <div className="grid gap-3 xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-6 xl:items-start">
+            <div className="grid gap-3 xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:items-start xl:gap-6">
               <div className="flex flex-col gap-2">
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
@@ -136,7 +143,14 @@ export default function Page() {
                   Why use this?
                 </p>
                 <p className="mt-1 text-[11px] leading-4 text-black/68 sm:text-xs">
-                  Nobody wants to read your CV. Keep it to one page and they might. Go over, and you've already lost them. Your CV is your foot in the door, make it easy to read or it won't open. But it's not just about readable - it's about revealing. Your taste in tools, who you follow, what you care about. That stuff signals culture fit faster than any cover letter. Skills get you considered, fit gets you hired.                </p>
+                  Nobody wants to read your CV. Keep it to one page and they
+                  might. Go over, and you've already lost them. Your CV is your
+                  foot in the door, make it easy to read or it won't open. But
+                  it's not just about readable - it's about revealing. Your
+                  taste in tools, who you follow, what you care about. That
+                  stuff signals culture fit faster than any cover letter. Skills
+                  get you considered, fit gets you hired.{" "}
+                </p>
               </div>
 
               <div className="flex flex-col items-start gap-1 xl:items-end">
