@@ -34,7 +34,7 @@ export function ProjectsEditor({
         </Button>
       </div>
       {projects.map((item, index) => (
-        <div key={`${item.name}-${index}`} className="form-card grid gap-3">
+        <div key={index} className="form-card grid gap-3">
           <div className="flex items-center justify-between">
             <span className="font-mono text-[11px] text-[#1f32b7]">
               Project {String(index + 1).padStart(2, "0")}

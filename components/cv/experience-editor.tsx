@@ -34,7 +34,7 @@ export function ExperienceEditor({
         </Button>
       </div>
       {experience.map((item, index) => (
-        <div key={`${item.company}-${index}`} className="form-card grid gap-3">
+        <div key={index} className="form-card grid gap-3">
           <div className="flex items-center justify-between">
             <span className="font-mono text-[11px] text-[#1f32b7]">
               Position {String(index + 1).padStart(2, "0")}

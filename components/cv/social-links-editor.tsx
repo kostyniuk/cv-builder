@@ -35,7 +35,7 @@ export function SocialLinksEditor({
       </div>
       <div className="grid grid-cols-1 gap-3 xl:grid-cols-4">
         {socialLinks.map((item, index) => (
-          <div key={`${item.label}-${index}`} className="form-card grid gap-3">
+          <div key={index} className="form-card grid gap-3">
             <div className="flex items-center justify-between">
               <span className="font-mono text-[11px] text-[#1f32b7]">
                 Link {String(index + 1).padStart(2, "0")}
