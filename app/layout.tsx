@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_APP_URL?.trim() || "http://localhost:3000"
+  process.env.NEXT_PUBLIC_APP_URL?.trim() || "https://www.leehireme.xyz/"
 
 const SITE_TITLE = "LeeHireMe"
 const SITE_DESCRIPTION =
