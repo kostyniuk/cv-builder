@@ -6,6 +6,7 @@ import { useQueryState } from "nuqs"
 
 import { CvHeader } from "@/components/cv/cv-header"
 import { ExperienceEditor } from "@/components/cv/experience-editor"
+import { AiGenerateBlock } from "@/components/cv/ai-generate-block"
 import { ExperienceSection } from "@/components/cv/experience-section"
 import { FooterSections } from "@/components/cv/footer-sections"
 import {
@@ -21,7 +22,6 @@ import { SignalEditor } from "@/components/cv/signal-editor"
 import { SocialLinksEditor } from "@/components/cv/social-links-editor"
 import { SummarySection } from "@/components/cv/summary-section"
 import { Button } from "@/components/ui/button"
-import { CodeBlockCommand } from "@/components/ui/code-block-command"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { aiCvPrompt } from "@/lib/ai-cv-prompt"
@@ -186,28 +186,11 @@ function PageContent() {
           </div>
         </section>
 
-        <section className="no-print grid gap-3 border border-black/15 bg-[#f4f1e8]/85 p-3 shadow-[6px_6px_0_rgba(15,15,15,0.05)] backdrop-blur md:max-h-[330px] md:grid-cols-[0.55fr_1.45fr] md:overflow-hidden md:p-4">
-          <div className="flex flex-col justify-between gap-2">
-            <div>
-              <p className="font-mono text-[9px] tracking-[0.2em] text-[#1f32b7] uppercase">
-                Generate with AI
-              </p>
-              <h2 className="mt-1 text-lg font-black tracking-normal">
-                Paste your CV. Get the URL.
-              </h2>
-              <p className="mt-1 max-w-lg text-xs leading-5 text-black/68">
-                Copy the prompt into an AI chat, upload a CV or paste notes, and
-                get a ready-to-open LeeHireMe URL.
-              </p>
-            </div>
-          </div>
-
-          <div className="max-h-[260px] overflow-y-auto rounded-xl">
-            <CodeBlockCommand
-              prompt={aiCvPrompt}
-              className="[&_[data-slot=code-block-command-code]]:text-xs"
-            />
-          </div>
+        <section className="no-print">
+          <AiGenerateBlock
+            prompt={aiCvPrompt}
+            className="shadow-[6px_6px_0_rgba(15,15,15,0.05)] backdrop-blur"
+          />
         </section>
 
         <section className="print-area flex min-w-0 justify-center self-center">

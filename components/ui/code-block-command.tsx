@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { WandSparklesIcon } from "lucide-react"
+import { ChevronDownIcon, WandSparklesIcon } from "lucide-react"
 
 import { CopyButton } from "@/components/custom/copy-button"
 import { type Badge } from "@/components/ui/badge"
@@ -21,7 +21,7 @@ type PackageManagerContextValue = {
 
 const PackageManagerContext = React.createContext<PackageManagerContextValue>({
   packageManager: "npm",
-  setPackageManager: () => {},
+  setPackageManager: () => { },
 })
 
 export function PackageManagerProvider({
@@ -60,7 +60,12 @@ export function usePackageManager() {
   return React.useContext(PackageManagerContext)
 }
 
-type ActiveTab = PackageManager | "prompt"
+/** A custom, non-code tab (e.g. an explainer) rendered before the code tabs. */
+export type CodeBlockTab = {
+  value: string
+  label: string
+  content: React.ReactNode
+}
 
 export type CodeBlockCommandProps = {
   prompt?: string
@@ -68,6 +73,16 @@ export type CodeBlockCommandProps = {
   pnpm?: string
   yarn?: string
   bun?: string
+  /** Extra non-code tabs, shown before the prompt / package-manager tabs. */
+  tabs?: CodeBlockTab[]
+  /** Value of the tab selected initially (custom value, "prompt", or a PM). */
+  defaultTab?: string
+  /** Renders the body behind a chevron toggle in the header. */
+  collapsible?: boolean
+  /** Start collapsed (only meaningful with `collapsible`). */
+  defaultCollapsed?: boolean
+  /** Optional content shown above the tab header, inside the card border. */
+  summary?: React.ReactNode
   onCopySuccess?: (text: string) => void
   onCopyError?: (error: Error) => void
   className?: string
@@ -82,6 +97,11 @@ export function CodeBlockCommand({
   pnpm,
   yarn,
   bun,
+  tabs,
+  defaultTab,
+  collapsible = false,
+  defaultCollapsed = false,
+  summary,
   onCopySuccess,
   onCopyError,
   className,
@@ -99,30 +119,80 @@ export function CodeBlockCommand({
   const availablePMs = PACKAGE_MANAGERS.filter(
     (pm) => commands[pm] !== undefined
   )
+  const customTabs = tabs ?? []
 
-  // Local tab state — "prompt" tab doesn't affect the shared PM context
-  const [activeTab, setActiveTab] = React.useState<ActiveTab>(() => {
+  // Local tab state. Custom tabs come first, then prompt, then package managers.
+  const [activeTab, setActiveTab] = React.useState<string>(() => {
+    if (defaultTab) return defaultTab
+    if (customTabs[0]) return customTabs[0].value
     if (prompt) return "prompt"
     if (availablePMs.includes(packageManager)) return packageManager
     return availablePMs[0] ?? "npm"
   })
 
-  // Keep active tab in sync when the shared PM context changes
-  React.useEffect(() => {
+  const [collapsed, setCollapsed] = React.useState(
+    collapsible && defaultCollapsed
+  )
+
+  // Follow the shared PM context when it changes — adjusted during render
+  // (React's recommended alternative to syncing state in an effect).
+  const [prevPackageManager, setPrevPackageManager] =
+    React.useState(packageManager)
+  if (packageManager !== prevPackageManager) {
+    setPrevPackageManager(packageManager)
     if (availablePMs.includes(packageManager)) {
       setActiveTab(packageManager)
     }
-  }, [packageManager]) // eslint-disable-line react-hooks/exhaustive-deps
+  }
 
-  function handleTabClick(tab: ActiveTab) {
+  function handleTabClick(tab: string) {
     setActiveTab(tab)
-    if (tab !== "prompt") {
-      setPackageManager(tab)
+    if (collapsible) setCollapsed(false)
+    if ((PACKAGE_MANAGERS as string[]).includes(tab)) {
+      setPackageManager(tab as PackageManager)
     }
   }
 
-  const activeContent =
-    activeTab === "prompt" ? (prompt ?? "") : (commands[activeTab] ?? "")
+  const activeCustomTab = customTabs.find((t) => t.value === activeTab)
+  const isCodeTab = !activeCustomTab
+  const codeContent =
+    activeTab === "prompt"
+      ? (prompt ?? "")
+      : ((commands[activeTab as PackageManager] ?? "") as string)
+  const [copied, setCopied] = React.useState(false)
+  const copiedTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  )
+
+  React.useEffect(() => {
+    return () => {
+      if (copiedTimeoutRef.current) {
+        clearTimeout(copiedTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  // Custom tabs can still offer the prompt copy action when a prompt exists.
+  const copyText = isCodeTab ? codeContent : (prompt ?? "")
+  React.useEffect(() => {
+    setCopied(false)
+  }, [copyText])
+
+  const idleCopyLabel =
+    activeTab === "prompt" || (!isCodeTab && prompt)
+      ? "Copy Prompt"
+      : "Copy Command"
+  const copyLabel = copied ? "Copied" : idleCopyLabel
+  const canCopy = copyText.length > 0
+
+  function handleCopySuccess(text: string) {
+    setCopied(true)
+    if (copiedTimeoutRef.current) {
+      clearTimeout(copiedTimeoutRef.current)
+    }
+    copiedTimeoutRef.current = setTimeout(() => setCopied(false), 2000)
+    onCopySuccess?.(text)
+  }
 
   return (
     <div
@@ -132,6 +202,12 @@ export function CodeBlockCommand({
         className
       )}
     >
+      {summary ? (
+        <div data-slot="code-block-command-summary" className="border-b px-4">
+          {summary}
+        </div>
+      ) : null}
+
       <div
         data-slot="code-block-command-header"
         className="flex items-center border-b px-4"
@@ -142,16 +218,16 @@ export function CodeBlockCommand({
             variant="outline"
             className="mr-3 size-6 shrink-0 rounded-full p-0"
           >
-            {activeTab === "prompt" ? (
+            {prompt ? (
               <WandSparklesIcon aria-hidden className="size-3.5" />
             ) : (
               <PackageManagerIcon
-                packageManager={activeTab}
+                packageManager={packageManager}
                 className="size-3.5"
               />
             )}
           </BadgeComponent>
-        ) : activeTab === "prompt" ? (
+        ) : prompt ? (
           <WandSparklesIcon
             aria-hidden
             data-slot="code-block-command-active-icon"
@@ -159,18 +235,28 @@ export function CodeBlockCommand({
           />
         ) : (
           <PackageManagerIcon
-            packageManager={activeTab}
+            packageManager={packageManager}
             data-slot="code-block-command-active-icon"
             className="mr-3 size-5 shrink-0 text-muted-foreground"
           />
         )}
+
+        {customTabs.map((tab) => (
+          <TabButton
+            key={tab.value}
+            active={activeTab === tab.value}
+            onClick={() => handleTabClick(tab.value)}
+          >
+            {tab.label}
+          </TabButton>
+        ))}
 
         {prompt && (
           <TabButton
             active={activeTab === "prompt"}
             onClick={() => handleTabClick("prompt")}
           >
-            prompt
+            Prompt
           </TabButton>
         )}
 
@@ -183,28 +269,77 @@ export function CodeBlockCommand({
             {pm}
           </TabButton>
         ))}
+
+        <div className="ml-auto flex items-center gap-1 pl-2">
+          {canCopy && (
+            <CopyButton
+              data-slot="code-block-command-copy"
+              size="sm"
+              variant="outline"
+              className="h-8 rounded-[3px] border-black/25 bg-transparent px-2.5 font-mono text-[10px] font-medium tracking-[0.16em] uppercase hover:border-black/45 hover:bg-[#f4f1e8]/50"
+              text={copyText}
+              onCopySuccess={handleCopySuccess}
+              onCopyError={onCopyError}
+            >
+              <span className="inline-block min-w-[8.75em] text-left">
+                {copyLabel}
+              </span>
+            </CopyButton>
+          )}
+          {collapsible && (
+            <button
+              type="button"
+              data-slot="code-block-command-toggle"
+              onClick={() => setCollapsed((c) => !c)}
+              aria-label={collapsed ? "Expand" : "Collapse"}
+              aria-expanded={!collapsed}
+              className="inline-flex size-7 items-center justify-center rounded-[min(var(--radius-md),12px)] text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+            >
+              <ChevronDownIcon
+                className={cn(
+                  "size-4 transition-transform duration-300",
+                  !collapsed && "rotate-180"
+                )}
+              />
+            </button>
+          )}
+        </div>
       </div>
 
-      <div data-slot="code-block-command-content" className="px-4 py-3 pr-12">
-        <pre className="overflow-x-auto overscroll-x-contain">
-          <code
-            data-slot="code-block-command-code"
-            className="font-mono text-sm leading-none text-foreground/80"
-          >
-            {activeTab !== "prompt" && <span className="select-none">$ </span>}
-            {activeContent}
-          </code>
-        </pre>
+      <div
+        className={cn(
+          "grid transition-[grid-template-rows] duration-300 ease-out",
+          collapsible && collapsed ? "grid-rows-[0fr]" : "grid-rows-[1fr]"
+        )}
+      >
+        <div className="overflow-hidden">
+          {activeCustomTab ? (
+            <div
+              data-slot="code-block-command-content"
+              className="px-4 py-3"
+            >
+              {activeCustomTab.content}
+            </div>
+          ) : (
+            <div
+              data-slot="code-block-command-content"
+              className="px-4 py-3"
+            >
+              <pre className="overflow-x-auto overscroll-x-contain">
+                <code
+                  data-slot="code-block-command-code"
+                  className="font-mono text-sm leading-none text-foreground/80"
+                >
+                  {activeTab !== "prompt" && (
+                    <span className="select-none">$ </span>
+                  )}
+                  {codeContent}
+                </code>
+              </pre>
+            </div>
+          )}
+        </div>
       </div>
-
-      <CopyButton
-        data-slot="code-block-command-copy"
-        size="icon-sm"
-        className="absolute top-2 right-2"
-        text={activeContent}
-        onCopySuccess={onCopySuccess}
-        onCopyError={onCopyError}
-      />
     </div>
   )
 }
