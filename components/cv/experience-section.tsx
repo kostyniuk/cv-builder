@@ -26,7 +26,7 @@ export function ExperienceSection({
             </div>
             <div className="timeline-node" />
             <div>
-              <h3 className="font-mono text-sm font-bold">
+              <h3 className="font-mono text-sm leading-none font-bold">
                 {item.company}
                 {item.title ? (
                   <span className="font-normal"> | {item.title}</span>
