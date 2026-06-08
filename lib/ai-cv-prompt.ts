@@ -13,7 +13,8 @@ Output requirements:
 4. Build <encoded-json> by running encodeURIComponent(JSON.stringify(cvData)).
 5. Do not wrap the final URL in markdown code fences.
 6. Do not invent employers, degrees, dates, links, or metrics. You may improve wording, grouping, and clarity.
-7. Keep the CV concise enough for a one-page layout.
+7. When provided information directly matches a key field, preserve the author's original text as much as possible instead of rephrasing it. You may trim length, remove repetition, or lightly adjust a sentence only when it is too long or does not fit the one-page CV.
+8. Keep the CV concise enough for a one-page layout.
 
 Data structure:
 {
@@ -68,11 +69,11 @@ Field guidance:
 - summary: Make it sound like a real person, not corporate boilerplate. Include strengths, domain, and working style.
 - about: Use only if it adds memorable signal. It can include interests, collaboration style, side interests, or personal context.
 - socialLinks: Include only links that are present or strongly implied. Prefer LinkedIn, GitHub, portfolio, X/Twitter, personal site.
-- experience: Put newest roles first. Merge weak or very old roles if needed. Keep 2-4 bullets per role. Prefer measurable achievements and concrete scope.
-- projects: Include 0-4 strongest projects. Prefer shipped, inspectable, or technically distinctive projects.
+- experience: Put newest roles first. Merge weak or very old roles if needed. Keep 2-4 bullets per role. Prefer measurable achievements and concrete scope. Preserve original company names, titles, dates, and strong source bullets when they already fit; trim before rewriting.
+- projects: Include 0-4 strongest projects. Prefer shipped, inspectable, or technically distinctive projects. Preserve original project names, URLs, stacks, and descriptions when they are clear enough.
 - education: Preserve exact institution and degree when available.
 - awards: Leave empty and set sections.awards to false if no awards exist.
-- skills: Group skills by category. Keep it scannable.
+- skills: Group skills by category. Keep it scannable. Preserve original skill names and technology names exactly when available.
 - taste: Use this as a culture-fit signal: tools, frameworks, products, engineering taste, communities, or creative preferences.
 - inspirations: Use only real names/sources from the provided information, or leave empty if unknown.
 - sections: Set a section to false when its corresponding field is empty or weak. Set portfolio to true if website, GitHub, or project links exist.
