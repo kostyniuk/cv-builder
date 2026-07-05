@@ -26,7 +26,7 @@ export type SectionKey =
   | "portfolio"
   | "skills"
 
-export const backgroundLogoSizes = ["sm", "md", "lg", "xl"] as const
+export const backgroundLogoSizes = ["sm", "md", "lg", "xl", "2xl"] as const
 
 export type BackgroundLogoSize = (typeof backgroundLogoSizes)[number]
 

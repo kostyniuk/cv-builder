@@ -15,6 +15,7 @@ const sizeLabels: Record<BackgroundLogoSize, string> = {
   md: "MD",
   lg: "LG",
   xl: "XL",
+  "2xl": "2XL",
 }
 
 export function BackgroundEditor({
@@ -31,10 +32,10 @@ export function BackgroundEditor({
             CV background SVG
           </Label>
           <p className="text-xs text-black/58">
-            Paste any SVG. It prints as a static one-color repeating logo.
+            Paste any SVG. It prints as a static low-contrast repeating logo.
           </p>
         </div>
-        <div className="inline-grid grid-cols-4 border border-black/20 bg-[#fffdf5]/75">
+        <div className="inline-grid grid-cols-5 border border-black/20 bg-[#fffdf5]/75">
           {backgroundLogoSizes.map((option) => (
             <Button
               key={option}

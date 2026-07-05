@@ -1,10 +1,11 @@
 import type { CSSProperties } from "react"
 
 export const driftFieldSizes = {
-  sm: 76,
-  md: 112,
-  lg: 156,
-  xl: 220,
+  sm: { logo: 44, tile: 112 },
+  md: { logo: 64, tile: 152 },
+  lg: { logo: 92, tile: 208 },
+  xl: { logo: 132, tile: 288 },
+  "2xl": { logo: 176, tile: 368 },
 } as const
 
 export type DriftFieldSize = keyof typeof driftFieldSizes
@@ -12,53 +13,64 @@ export type DriftFieldSize = keyof typeof driftFieldSizes
 export type DriftFieldProps = {
   svg: string
   size?: DriftFieldSize
-  color?: string
   opacity?: number
-  position?: string
-  repeat?: CSSProperties["backgroundRepeat"]
   className?: string
   style?: CSSProperties
 }
 
-function toMonochromeSvg(svg: string, color: string) {
+function normalizeSvgInput(svg: string) {
   const source = svg.trim()
 
-  if (!source.toLowerCase().includes("<svg")) {
-    return ""
+  if (source.toLowerCase().includes("<svg")) {
+    return source
   }
 
-  const withoutXml = source.replace(/<\?xml[\s\S]*?\?>/i, "").trim()
-  const withNamespace = withoutXml.replace(
-    /<svg\b(?![^>]*\bxmlns=)/i,
-    '<svg xmlns="http://www.w3.org/2000/svg"'
-  )
-  const style = `<style>:where(path,rect,circle,ellipse,line,polyline,polygon,text){fill:${color}!important;stroke:${color}!important}:where([fill="none"]){fill:none!important}:where([stroke="none"]){stroke:none!important}</style>`
+  try {
+    const decoded = decodeURIComponent(source.replace(/\+/g, " "))
 
-  return withNamespace.replace(/<svg\b([^>]*)>/i, `<svg$1>${style}`)
+    return decoded.toLowerCase().includes("<svg") ? decoded : ""
+  } catch {
+    return ""
+  }
 }
 
-function toSvgDataUrl(svg: string, color: string) {
-  const monochromeSvg = toMonochromeSvg(svg, color)
+function prepareSvg(svg: string) {
+  const source = normalizeSvgInput(svg)
 
-  if (!monochromeSvg) {
+  if (!source) {
     return ""
   }
 
-  return `data:image/svg+xml,${encodeURIComponent(monochromeSvg)}`
+  return source
+    .replace(/\s+[a-zA-Z][\w:-]*=\{[^}]*\}/g, "")
+    .replace(/\sclassName=(["'])/g, " class=$1")
+    .replace(/<\?xml[\s\S]*?\?>/i, "")
+    .trim()
+    .replace(
+      /<svg\b(?![^>]*\bxmlns=)/i,
+      '<svg xmlns="http://www.w3.org/2000/svg"'
+    )
+}
+
+function toSvgDataUrl(svg: string) {
+  const preparedSvg = prepareSvg(svg)
+
+  if (!preparedSvg) {
+    return ""
+  }
+
+  return `data:image/svg+xml,${encodeURIComponent(preparedSvg)}`
 }
 
 export function DriftField({
   svg,
   size = "md",
-  color = "#111111",
-  opacity = 0.055,
-  position = "0 0",
-  repeat = "repeat",
+  opacity = 0.08,
   className,
   style,
 }: DriftFieldProps) {
-  const tile = driftFieldSizes[size] ?? driftFieldSizes.md
-  const src = toSvgDataUrl(svg, color)
+  const { logo, tile } = driftFieldSizes[size] ?? driftFieldSizes.md
+  const src = toSvgDataUrl(svg)
 
   if (!src) {
     return null
@@ -67,14 +79,42 @@ export function DriftField({
   const css = {
     position: "absolute",
     inset: 0,
-    backgroundImage: `url("${src}")`,
-    backgroundPosition: position,
-    backgroundRepeat: repeat,
-    backgroundSize: `${tile}px ${tile}px`,
+    display: "grid",
+    gridTemplateColumns: `repeat(auto-fill, ${tile}px)`,
+    gridAutoRows: `${tile}px`,
+    justifyContent: "start",
+    alignContent: "start",
+    overflow: "hidden",
     opacity,
     pointerEvents: "none",
     ...style,
   } as CSSProperties
 
-  return <div aria-hidden className={className} style={css} />
+  return (
+    <div aria-hidden className={className} style={css}>
+      {Array.from({ length: 180 }).map((_, index) => (
+        <span
+          key={index}
+          style={{
+            display: "grid",
+            width: tile,
+            height: tile,
+            placeItems: "center",
+          }}
+        >
+          <img
+            alt=""
+            draggable={false}
+            src={src}
+            style={{
+              display: "block",
+              width: logo,
+              height: logo,
+              objectFit: "contain",
+            }}
+          />
+        </span>
+      ))}
+    </div>
+  )
 }
