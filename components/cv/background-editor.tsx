@@ -32,7 +32,8 @@ export function BackgroundEditor({
             CV background SVG
           </Label>
           <p className="text-xs text-black/58">
-            Paste any SVG. It prints as a static low-contrast repeating logo.
+            Optional. Paste an SVG to print a static low-contrast repeating
+            logo.
           </p>
         </div>
         <div className="inline-grid grid-cols-5 border border-black/20 bg-[#fffdf5]/75">

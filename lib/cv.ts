@@ -67,17 +67,6 @@ export const blankProject: ProjectItem = {
   description: "Short impact-focused project description.",
 }
 
-export const defaultBackgroundSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-  <path d="M2 4.5 V2 H4.5 M19.5 2 H22 V4.5 M22 19.5 V22 H19.5 M4.5 22 H2 V19.5" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="square" />
-  <rect x="5.5" y="4" width="13" height="16" fill="none" stroke="currentColor" stroke-width="1.2" />
-  <rect x="7.5" y="6.5" width="6" height="1.6" fill="currentColor" />
-  <rect x="7.5" y="9.6" width="1.4" height="1.4" fill="currentColor" />
-  <rect x="7.5" y="11.6" width="9" height="0.7" fill="currentColor" />
-  <rect x="7.5" y="13.2" width="9" height="0.7" fill="currentColor" />
-  <rect x="7.5" y="14.8" width="6.5" height="0.7" fill="currentColor" />
-  <rect x="7.5" y="17.2" width="4" height="0.7" fill="currentColor" />
-</svg>`
-
 export const initialData: CvData = {
   name: "Alex Kostyniuk",
   nameFontSize: "4.7",
@@ -165,7 +154,7 @@ export const initialData: CvData = {
     "TypeScript, Next.js, Bun, Vercel, TanStack, Drizzle, shadcn, OpenAI, T3 Code",
   inspirations:
     "Theo\nTanner Linsley\nGuillermo Rauch\nLee Robinson\nRyo Lu\nPauline P. Narvas\nOrcDev\nshadcn\nOpenAI\nCursor\nVercel\nPlanetscale\nLovable",
-  backgroundSvg: defaultBackgroundSvg,
+  backgroundSvg: "",
   backgroundLogoSize: "md",
   sections: {
     about: true,
