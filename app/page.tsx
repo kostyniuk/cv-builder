@@ -339,18 +339,6 @@ function PageContent() {
               onToggle={toggleSection}
             />
 
-            <BackgroundEditor
-              svg={data.backgroundSvg}
-              size={data.backgroundLogoSize}
-              onSvgChange={(value) => updateField("backgroundSvg", value)}
-              onSizeChange={(value) =>
-                setData((current) => ({
-                  ...current,
-                  backgroundLogoSize: value,
-                }))
-              }
-            />
-
             <ExperienceEditor
               experience={data.experience}
               onAdd={() =>
@@ -390,6 +378,18 @@ function PageContent() {
             />
 
             <SignalEditor data={data} onUpdateField={updateField} />
+
+            <BackgroundEditor
+              svg={data.backgroundSvg}
+              size={data.backgroundLogoSize}
+              onSvgChange={(value) => updateField("backgroundSvg", value)}
+              onSizeChange={(value) =>
+                setData((current) => ({
+                  ...current,
+                  backgroundLogoSize: value,
+                }))
+              }
+            />
           </div>
         </section>
       </div>
