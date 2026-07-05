@@ -4,6 +4,8 @@ import { Download, RotateCcw } from "lucide-react"
 import { Suspense } from "react"
 import { useQueryState } from "nuqs"
 
+import { DriftField } from "@/components/drift-field"
+import { BackgroundEditor } from "@/components/cv/background-editor"
 import { CvHeader } from "@/components/cv/cv-header"
 import { ExperienceEditor } from "@/components/cv/experience-editor"
 import { AiGenerateBlock } from "@/components/cv/ai-generate-block"
@@ -195,6 +197,11 @@ function PageContent() {
 
         <section className="print-area flex min-w-0 justify-center self-center">
           <article className="cv-sheet relative w-full overflow-hidden border border-black/20 bg-[#fbfaf4] text-[#111] shadow-[0_20px_80px_rgba(12,10,3,0.18)]">
+            <DriftField
+              svg={data.backgroundSvg}
+              size={data.backgroundLogoSize}
+              className="cv-logo-field"
+            />
             <div className="corner corner-tl" />
             <div className="corner corner-tr" />
             <div className="corner corner-bl" />
@@ -330,6 +337,18 @@ function PageContent() {
               sections={data.sections}
               sectionLabels={sectionLabels}
               onToggle={toggleSection}
+            />
+
+            <BackgroundEditor
+              svg={data.backgroundSvg}
+              size={data.backgroundLogoSize}
+              onSvgChange={(value) => updateField("backgroundSvg", value)}
+              onSizeChange={(value) =>
+                setData((current) => ({
+                  ...current,
+                  backgroundLogoSize: value,
+                }))
+              }
             />
 
             <ExperienceEditor

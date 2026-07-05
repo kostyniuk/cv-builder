@@ -1,7 +1,9 @@
 import { parseAsJson } from "nuqs"
 
 import {
+  backgroundLogoSizes,
   initialData,
+  type BackgroundLogoSize,
   type CvData,
   type ExperienceItem,
   type ProjectItem,
@@ -17,6 +19,13 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function readString(value: unknown, fallback: string) {
   return typeof value === "string" ? value : fallback
+}
+
+function readBackgroundLogoSize(value: unknown): BackgroundLogoSize {
+  return typeof value === "string" &&
+    backgroundLogoSizes.includes(value as BackgroundLogoSize)
+    ? (value as BackgroundLogoSize)
+    : initialData.backgroundLogoSize
 }
 
 function readSocialLinks(value: unknown, fallback: SocialLink[]): SocialLink[] {
@@ -134,6 +143,8 @@ function parseCvData(value: unknown): CvData | null {
     skills: readString(value.skills, initialData.skills),
     taste: readString(value.taste, initialData.taste),
     inspirations: readString(value.inspirations, initialData.inspirations),
+    backgroundSvg: readString(value.backgroundSvg, initialData.backgroundSvg),
+    backgroundLogoSize: readBackgroundLogoSize(value.backgroundLogoSize),
     sections: readSections(value.sections),
   }
 }
