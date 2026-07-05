@@ -1,11 +1,14 @@
 import type { CvData } from "@/lib/cv"
 
-import { FormTitle, TextField } from "./form-primitives"
+import { TextField } from "./form-primitives"
 
 type SignalEditorProps = {
   data: CvData
   onUpdateField: (
-    field: keyof Omit<CvData, "experience" | "projects" | "sections" | "socialLinks">,
+    field: keyof Omit<
+      CvData,
+      "experience" | "projects" | "sections" | "socialLinks"
+    >,
     value: string
   ) => void
 }
@@ -13,7 +16,6 @@ type SignalEditorProps = {
 export function SignalEditor({ data, onUpdateField }: SignalEditorProps) {
   return (
     <section className="grid gap-3">
-      <FormTitle>Signal</FormTitle>
       <div className="grid gap-3 xl:grid-cols-[1.35fr_1.35fr_0.9fr]">
         <TextField
           label="Additional / Random Info"
