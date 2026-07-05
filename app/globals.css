@@ -175,8 +175,14 @@
 }
 
 .cv-sheet-inner {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
+}
+
+.cv-logo-field {
+  z-index: 0;
 }
 
 .cv-sheet::before {

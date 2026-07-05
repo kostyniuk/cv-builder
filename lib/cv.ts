@@ -1,21 +1,21 @@
 export type ExperienceItem = {
-  company: string;
-  title: string;
-  date: string;
-  bullets: string;
-};
+  company: string
+  title: string
+  date: string
+  bullets: string
+}
 
 export type ProjectItem = {
-  name: string;
-  url: string;
-  stack: string;
-  description: string;
-};
+  name: string
+  url: string
+  stack: string
+  description: string
+}
 
 export type SocialLink = {
-  label: string;
-  url: string;
-};
+  label: string
+  url: string
+}
 
 export type SectionKey =
   | "about"
@@ -24,42 +24,59 @@ export type SectionKey =
   | "inspirations"
   | "education"
   | "portfolio"
-  | "skills";
+  | "skills"
+
+export const backgroundLogoSizes = ["sm", "md", "lg", "xl", "2xl"] as const
+
+export type BackgroundLogoSize = (typeof backgroundLogoSizes)[number]
 
 export type CvData = {
-  name: string;
-  nameFontSize: string;
-  role: string;
-  email: string;
-  phone: string;
-  location: string;
-  website: string;
-  summary: string;
-  about: string;
-  socialLinks: SocialLink[];
-  experience: ExperienceItem[];
-  projects: ProjectItem[];
-  education: string;
-  awards: string;
-  skills: string;
-  taste: string;
-  inspirations: string;
-  sections: Record<SectionKey, boolean>;
-};
+  name: string
+  nameFontSize: string
+  role: string
+  email: string
+  phone: string
+  location: string
+  website: string
+  summary: string
+  about: string
+  socialLinks: SocialLink[]
+  experience: ExperienceItem[]
+  projects: ProjectItem[]
+  education: string
+  awards: string
+  skills: string
+  taste: string
+  inspirations: string
+  backgroundSvg: string
+  backgroundLogoSize: BackgroundLogoSize
+  sections: Record<SectionKey, boolean>
+}
 
 export const blankExperience: ExperienceItem = {
   company: "New Company",
   title: "Role title",
   date: "2026 - Present",
   bullets: "Describe one measurable contribution.",
-};
+}
 
 export const blankProject: ProjectItem = {
   name: "New Project",
   url: "https://",
   stack: "Tools, stack",
   description: "Short impact-focused project description.",
-};
+}
+
+export const defaultBackgroundSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <path d="M2 4.5 V2 H4.5 M19.5 2 H22 V4.5 M22 19.5 V22 H19.5 M4.5 22 H2 V19.5" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="square" />
+  <rect x="5.5" y="4" width="13" height="16" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <rect x="7.5" y="6.5" width="6" height="1.6" fill="currentColor" />
+  <rect x="7.5" y="9.6" width="1.4" height="1.4" fill="currentColor" />
+  <rect x="7.5" y="11.6" width="9" height="0.7" fill="currentColor" />
+  <rect x="7.5" y="13.2" width="9" height="0.7" fill="currentColor" />
+  <rect x="7.5" y="14.8" width="6.5" height="0.7" fill="currentColor" />
+  <rect x="7.5" y="17.2" width="4" height="0.7" fill="currentColor" />
+</svg>`
 
 export const initialData: CvData = {
   name: "Alex Kostyniuk",
@@ -144,9 +161,12 @@ export const initialData: CvData = {
   awards: "",
   skills:
     "Languages: TypeScript, JavaScript, SQL\nFrontend: React, all Tanstack, Next.js, Tailwind CSS, shadcn/ui\nBackend: Node.js, Bun, PostgreSQL\nTooling: oxc",
-  taste: "TypeScript, Next.js, Bun, Vercel, TanStack, Drizzle, shadcn, OpenAI, T3 Code",
+  taste:
+    "TypeScript, Next.js, Bun, Vercel, TanStack, Drizzle, shadcn, OpenAI, T3 Code",
   inspirations:
     "Theo\nTanner Linsley\nGuillermo Rauch\nLee Robinson\nRyo Lu\nPauline P. Narvas\nOrcDev\nshadcn\nOpenAI\nCursor\nVercel\nPlanetscale\nLovable",
+  backgroundSvg: defaultBackgroundSvg,
+  backgroundLogoSize: "md",
   sections: {
     about: true,
     awards: false,
@@ -156,7 +176,7 @@ export const initialData: CvData = {
     portfolio: true,
     skills: true,
   },
-};
+}
 
 export const sectionLabels: Record<SectionKey, string> = {
   about: "Additional Info",
@@ -166,35 +186,43 @@ export const sectionLabels: Record<SectionKey, string> = {
   education: "Education",
   portfolio: "QR",
   skills: "Skills",
-};
+}
 
 export function lines(value: string) {
   return value
     .split("\n")
     .map((line) => line.trim())
-    .filter(Boolean);
+    .filter(Boolean)
 }
 
 export function parseNameFontSize(value: string) {
-  const parsed = Number.parseFloat(value);
-  return Number.isFinite(parsed) ? parsed : 2.85;
+  const parsed = Number.parseFloat(value)
+  return Number.isFinite(parsed) ? parsed : 2.85
 }
 
 export function socialBadge(label: string, url: string) {
-  const source = `${label} ${url}`.toLowerCase();
+  const source = `${label} ${url}`.toLowerCase()
 
   if (source.includes("linkedin")) {
-    return "in";
+    return "in"
   }
 
-  if (source.includes("github") || source.includes("gitlab") || source.includes("bitbucket")) {
-    return "gh";
+  if (
+    source.includes("github") ||
+    source.includes("gitlab") ||
+    source.includes("bitbucket")
+  ) {
+    return "gh"
   }
 
-  if (source.includes("twitter") || source.includes("x.com") || source.includes("x /")) {
-    return "x";
+  if (
+    source.includes("twitter") ||
+    source.includes("x.com") ||
+    source.includes("x /")
+  ) {
+    return "x"
   }
 
-  const compact = label.replace(/[^a-z0-9]/gi, "").slice(0, 2);
-  return compact ? compact.toLowerCase() : "ln";
+  const compact = label.replace(/[^a-z0-9]/gi, "").slice(0, 2)
+  return compact ? compact.toLowerCase() : "ln"
 }
