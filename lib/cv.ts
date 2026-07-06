@@ -70,13 +70,13 @@ export const blankProject: ProjectItem = {
 export const initialData: CvData = {
   name: "Alex Kostyniuk",
   nameFontSize: "4.7",
-  role: "Product Engineer | Team Lead @ AMFG",
+  role: "Software Engineer | Team Lead @ AMFG",
   email: "alexandru.costiniuc00@gmail.com",
   phone: "",
   location: "Stockholm, Sweden",
   website: "a13x.space",
   summary:
-    "Product Engineer focused on solving customer problems. When I was a child I wanted to become a footballer, that was my passion and a goal. I still love football, but building things is my passion too, now. I love helping people and work in teams when we can achieve big goals together. Really like Agentic Workflows with AI. Love to build great architectures. When I was a teen, I thought that I would be a backend engineer because frontend is easy and not interesting, now I enjoy both, but frontend is ♥︎. I'm also active on Twitter if you like my tweets we can be friends 😅.",
+    "Software Engineer focused on solving customer problems. When I was a child I wanted to become a footballer, that was my passion and a goal. I still love football, but building things is my passion too, now. I love helping people and work in teams when we can achieve big goals together. Really like Agentic Workflows with AI. Love to build great architectures. When I was a teen, I thought that I would be a backend engineer because frontend is easy and not interesting, now I enjoy both, but frontend is ♥︎. I'm also active on Twitter if you like my tweets we can be friends 😅.",
   about:
     "I like to create beautiful UIs, like to dress well, and like NBA and football. I'm a big dog lover - have one myself, named Theo. I used to run and a lot, and had run a half-marathon back in the day. I love rap festivals, I was at Rolling Loud and others, saw Travis Scott, Playboi Carti and some more, planning on visiting more. Trying to be happy and make people around me happy too.",
   socialLinks: [
