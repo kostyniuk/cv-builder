@@ -1,15 +1,15 @@
 # CV Builder
 
-Single-page CV/resume builder built with Next.js 16, React 19, Tailwind CSS 4, and shadcn-style UI primitives. The app renders a print-friendly resume preview and an inline editor so you can adjust content, toggle sections, and export to PDF from the browser.
+Single-page CV/resume builder built with Next.js 16, React 19, Tailwind CSS 4, and shadcn-style UI primitives. The app renders a print-friendly resume preview and an inline editor so you can adjust content, toggle sections, and export to PDF or an ATS-friendly Word document from the browser.
 
 <img width="695" height="976" alt="Screenshot 2026-06-08 at 10 17 07 AM" src="https://github.com/user-attachments/assets/4e08a261-ca92-45b8-aad0-88f18c76c10c" />
-
 
 ## What it does
 
 - Live-edit core CV fields: identity, contact info, summary, social links, experience, and projects
 - Toggle optional sections like additional info, skills, education, inspirations, awards, and portfolio QR
 - Render a one-page, print-oriented layout optimized for browser PDF export
+- Export a separate, single-column `.docx` with standard ATS section headings, standard bullets, and no tables, graphics, headers, footers, or text boxes
 - Seed the app with default CV data from a typed local data model
 
 ## Stack
@@ -66,4 +66,6 @@ To adjust layout or styling:
 
 ## Exporting
 
-Use the `Download PDF` button in the UI. It triggers the browser print flow, which is intended for saving the resume as a PDF.
+Use `Export ATS DOCX` for a plain Word document designed for reliable parsing by applicant tracking systems. The DOCX uses the same builder data but deliberately omits visual-only elements such as the background graphic and portfolio QR code.
+
+Use `Download PDF` for the visual CV. It triggers the browser print flow, which is intended for saving the resume as a PDF.

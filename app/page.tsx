@@ -1,7 +1,7 @@
 "use client"
 
-import { Download, RotateCcw } from "lucide-react"
-import { Suspense } from "react"
+import { Download, FileText, LoaderCircle, RotateCcw } from "lucide-react"
+import { Suspense, useState } from "react"
 import { useQueryState } from "nuqs"
 
 import { DriftField } from "@/components/drift-field"
@@ -41,6 +41,8 @@ import {
 import { cvDataParser } from "@/lib/cv-query"
 
 function PageContent() {
+  const [isExportingDocx, setIsExportingDocx] = useState(false)
+  const [docxExportError, setDocxExportError] = useState("")
   const [data, setData] = useQueryState(
     "cv",
     cvDataParser.withDefault(initialData).withOptions({
@@ -121,6 +123,21 @@ function PageContent() {
     }))
   }
 
+  async function exportAtsDocx() {
+    setIsExportingDocx(true)
+    setDocxExportError("")
+
+    try {
+      const { downloadAtsDocx } = await import("@/lib/ats-docx")
+      await downloadAtsDocx(data)
+    } catch (error) {
+      console.error("Could not export ATS DOCX", error)
+      setDocxExportError("DOCX export failed. Please try again.")
+    } finally {
+      setIsExportingDocx(false)
+    }
+  }
+
   return (
     <main className="cv-app min-h-svh px-4 py-5 text-[#111] sm:px-6 lg:px-8">
       <div className="mx-auto flex max-w-[1720px] flex-col gap-6">
@@ -138,7 +155,7 @@ function PageContent() {
                     </Label>
                   </div>
                   <p className="text-xs text-black/62 sm:text-sm">
-                    Scroll down to fill the form, then print or save as PDF.
+                    Fill the form, then export as an ATS-ready DOCX or PDF.
                   </p>
                 </div>
               </div>
@@ -227,7 +244,7 @@ function PageContent() {
                 One-page CV Builder
               </h1>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center justify-end gap-2">
               <Button
                 variant="outline"
                 size="icon"
@@ -237,6 +254,20 @@ function PageContent() {
                 className="border-black/25 bg-[#fbfaf4]"
               >
                 <RotateCcw />
+              </Button>
+              <Button
+                variant="outline"
+                className="rounded-none border-black/25 bg-[#fbfaf4] font-mono text-xs tracking-[0.12em] uppercase hover:border-[#1f32b7] hover:text-[#1f32b7]"
+                onClick={exportAtsDocx}
+                disabled={isExportingDocx}
+                title="Export a single-column, ATS-friendly Word document"
+              >
+                {isExportingDocx ? (
+                  <LoaderCircle className="animate-spin" />
+                ) : (
+                  <FileText />
+                )}
+                {isExportingDocx ? "Exporting DOCX" : "Export ATS DOCX"}
               </Button>
               <Button
                 className="rounded-none bg-[#111] font-mono text-xs tracking-[0.16em] text-white uppercase hover:bg-[#1f32b7]"
@@ -253,6 +284,12 @@ function PageContent() {
               </Button>
             </div>
           </div>
+          <p
+            className="mt-2 text-right font-mono text-[10px] text-red-700"
+            aria-live="polite"
+          >
+            {docxExportError}
+          </p>
 
           <Separator className="my-4 bg-black/20" />
 
