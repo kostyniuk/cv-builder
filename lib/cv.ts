@@ -1,21 +1,21 @@
 export type ExperienceItem = {
-  company: string
-  title: string
-  date: string
-  bullets: string
-}
+  company: string;
+  title: string;
+  date: string;
+  bullets: string;
+};
 
 export type ProjectItem = {
-  name: string
-  url: string
-  stack: string
-  description: string
-}
+  name: string;
+  url: string;
+  stack: string;
+  description: string;
+};
 
 export type SocialLink = {
-  label: string
-  url: string
-}
+  label: string;
+  url: string;
+};
 
 export type SectionKey =
   | "about"
@@ -24,48 +24,48 @@ export type SectionKey =
   | "inspirations"
   | "education"
   | "portfolio"
-  | "skills"
+  | "skills";
 
-export const backgroundLogoSizes = ["sm", "md", "lg", "xl", "2xl"] as const
+export const backgroundLogoSizes = ["sm", "md", "lg", "xl", "2xl"] as const;
 
-export type BackgroundLogoSize = (typeof backgroundLogoSizes)[number]
+export type BackgroundLogoSize = (typeof backgroundLogoSizes)[number];
 
 export type CvData = {
-  name: string
-  nameFontSize: string
-  role: string
-  email: string
-  phone: string
-  location: string
-  website: string
-  summary: string
-  about: string
-  socialLinks: SocialLink[]
-  experience: ExperienceItem[]
-  projects: ProjectItem[]
-  education: string
-  awards: string
-  skills: string
-  taste: string
-  inspirations: string
-  backgroundSvg: string
-  backgroundLogoSize: BackgroundLogoSize
-  sections: Record<SectionKey, boolean>
-}
+  name: string;
+  nameFontSize: string;
+  role: string;
+  email: string;
+  phone: string;
+  location: string;
+  website: string;
+  summary: string;
+  about: string;
+  socialLinks: SocialLink[];
+  experience: ExperienceItem[];
+  projects: ProjectItem[];
+  education: string;
+  awards: string;
+  skills: string;
+  taste: string;
+  inspirations: string;
+  backgroundSvg: string;
+  backgroundLogoSize: BackgroundLogoSize;
+  sections: Record<SectionKey, boolean>;
+};
 
 export const blankExperience: ExperienceItem = {
   company: "New Company",
   title: "Role title",
   date: "2026 - Present",
   bullets: "Describe one measurable contribution.",
-}
+};
 
 export const blankProject: ProjectItem = {
   name: "New Project",
   url: "https://",
   stack: "Tools, stack",
   description: "Short impact-focused project description.",
-}
+};
 
 export const initialData: CvData = {
   name: "Alex Kostyniuk",
@@ -91,7 +91,7 @@ export const initialData: CvData = {
       title: "Team Lead",
       date: "May 2025 - Present",
       bullets:
-        "Leading architecture and delivery across frontend modernization, backend platform work, performance improvements, and team-wide developer experience initiatives while managing a team of 3 engineers.\nLed migration from Kendo to shadcn/ui and Tailwind CSS, improving iteration speed & developer experience.\nBuilt a 3D model similarity engine using cosine similarity, vector embeddings, and pgvector in PostgreSQL.",
+        "Leading architecture and delivery across frontend modernization, backend platform work, performance improvements, and team-wide developer experience initiatives while managing a team of 3 engineers.\nLed migration from Kendo to shadcn/ui and Tailwind CSS, improving iteration speed & developer experience.\nBuilt a 3D model similarity engine using cosine similarity, vector embeddings, and pgvector in PostgreSQL.\nImplemented MCP/Public API for users to be able to do actions outside of AMFG application",
     },
     {
       company: "AMFG",
@@ -150,8 +150,7 @@ export const initialData: CvData = {
   awards: "",
   skills:
     "Languages: TypeScript, JavaScript, SQL\nFrontend: React, all TanStack, Next.js, Tailwind CSS, shadcn/ui\nBackend: Node.js, Bun, PostgreSQL, MySQL, Redis\nTooling: oxc, Vite, Vitest",
-  taste:
-    "TypeScript, Next.js, Bun, Vercel, TanStack, Drizzle, shadcn, OpenAI, T3 Code",
+  taste: "TypeScript, Next.js, Bun, Vercel, TanStack, Drizzle, shadcn, OpenAI, T3 Code",
   inspirations:
     "Theo\nTanner Linsley\nGuillermo Rauch\nLee Robinson\nRyo Lu\nPauline P. Narvas\nOrcDev\nshadcn\nOpenAI\nCursor\nVercel\nPlanetscale\nLovable",
   backgroundSvg: "",
@@ -165,7 +164,7 @@ export const initialData: CvData = {
     portfolio: true,
     skills: true,
   },
-}
+};
 
 export const sectionLabels: Record<SectionKey, string> = {
   about: "Additional Info",
@@ -175,43 +174,35 @@ export const sectionLabels: Record<SectionKey, string> = {
   education: "Education",
   portfolio: "QR",
   skills: "Skills",
-}
+};
 
 export function lines(value: string) {
   return value
     .split("\n")
     .map((line) => line.trim())
-    .filter(Boolean)
+    .filter(Boolean);
 }
 
 export function parseNameFontSize(value: string) {
-  const parsed = Number.parseFloat(value)
-  return Number.isFinite(parsed) ? parsed : 2.85
+  const parsed = Number.parseFloat(value);
+  return Number.isFinite(parsed) ? parsed : 2.85;
 }
 
 export function socialBadge(label: string, url: string) {
-  const source = `${label} ${url}`.toLowerCase()
+  const source = `${label} ${url}`.toLowerCase();
 
   if (source.includes("linkedin")) {
-    return "in"
+    return "in";
   }
 
-  if (
-    source.includes("github") ||
-    source.includes("gitlab") ||
-    source.includes("bitbucket")
-  ) {
-    return "gh"
+  if (source.includes("github") || source.includes("gitlab") || source.includes("bitbucket")) {
+    return "gh";
   }
 
-  if (
-    source.includes("twitter") ||
-    source.includes("x.com") ||
-    source.includes("x /")
-  ) {
-    return "x"
+  if (source.includes("twitter") || source.includes("x.com") || source.includes("x /")) {
+    return "x";
   }
 
-  const compact = label.replace(/[^a-z0-9]/gi, "").slice(0, 2)
-  return compact ? compact.toLowerCase() : "ln"
+  const compact = label.replace(/[^a-z0-9]/gi, "").slice(0, 2);
+  return compact ? compact.toLowerCase() : "ln";
 }
