@@ -198,7 +198,7 @@ function PageContent() {
                   rel="noreferrer"
                   className="font-mono text-[10px] tracking-[0.12em] text-black/60 uppercase transition-colors hover:text-[#1f32b7] xl:text-right"
                 >
-                  Repo: github.com/kostyniuk/lee-hire-me
+                  Repo: lee-hire-me
                 </a>
               </div>
             </div>
