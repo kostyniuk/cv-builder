@@ -91,7 +91,7 @@ export const initialData: CvData = {
       title: "Team Lead",
       date: "May 2025 - Present",
       bullets:
-        "Leading architecture and delivery across frontend modernization, backend platform work, performance improvements, and team-wide developer experience initiatives while managing a team of 3 engineers.\nLed migration from Kendo to shadcn/ui and Tailwind CSS, improving iteration speed & developer experience.\nBuilt a 3D model similarity engine using cosine similarity, vector embeddings, and pgvector in PostgreSQL.\nImplemented MCP/Public API for users to be able to do actions outside of AMFG application",
+        "Cut CI test time 5x, from 20 min to 4, by optimizing how tests work with the database.\nLeading architecture and delivery across frontend modernization, backend platform work, performance improvements, and team-wide developer experience initiatives while managing a team of 3 engineers.\nLed migration from Kendo to shadcn/ui and Tailwind CSS, improving iteration speed & developer experience.\nBuilt a 3D model similarity engine using cosine similarity, vector embeddings, and pgvector in PostgreSQL.\nImplemented MCP/Public API for users to be able to do actions outside of AMFG application",
     },
     {
       company: "AMFG",
