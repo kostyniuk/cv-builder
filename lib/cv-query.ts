@@ -90,6 +90,7 @@ function readProjects(value: unknown, fallback: ProjectItem[]): ProjectItem[] {
       url: "https://",
       stack: "Tools, stack",
       description: "Short impact-focused project description.",
+      stars: "",
     }
 
     if (!isRecord(item)) {
@@ -101,6 +102,7 @@ function readProjects(value: unknown, fallback: ProjectItem[]): ProjectItem[] {
       url: readString(item.url, fallbackItem.url),
       stack: readString(item.stack, fallbackItem.stack),
       description: readString(item.description, fallbackItem.description),
+      stars: readString(item.stars, fallbackItem.stars),
     }
   })
 }

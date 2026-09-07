@@ -50,7 +50,7 @@ export function ProjectsEditor({
               <Minus />
             </Button>
           </div>
-          <div className="grid gap-3 lg:grid-cols-[0.85fr_1.15fr_1fr_2fr]">
+          <div className="grid gap-3 lg:grid-cols-[0.85fr_1.15fr_1fr_0.4fr_2fr]">
             <TextField
               label="Name"
               value={item.name}
@@ -65,6 +65,11 @@ export function ProjectsEditor({
               label="Stack"
               value={item.stack}
               onChange={(value) => onUpdate(index, "stack", value)}
+            />
+            <TextField
+              label="Stars"
+              value={item.stars}
+              onChange={(value) => onUpdate(index, "stars", value)}
             />
             <TextField
               label="Description"

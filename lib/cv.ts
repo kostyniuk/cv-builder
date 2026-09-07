@@ -10,6 +10,7 @@ export type ProjectItem = {
   url: string;
   stack: string;
   description: string;
+  stars: string;
 };
 
 export type SocialLink = {
@@ -65,6 +66,7 @@ export const blankProject: ProjectItem = {
   url: "https://",
   stack: "Tools, stack",
   description: "Short impact-focused project description.",
+  stars: "",
 };
 
 export const initialData: CvData = {
@@ -122,6 +124,7 @@ export const initialData: CvData = {
       stack: "shadcn/ui, glassmorphism, component library",
       description:
         "A library of Apple-like glass components for shadcn/ui, with 20+ glass-styled primitives, 5 glass effect variants for dark and light themes, clear surfaces, and SVG-based physical refraction for realistic light bending through thick glass.",
+      stars: "74",
     },
     {
       name: "Mellow Lines",
@@ -129,6 +132,7 @@ export const initialData: CvData = {
       stack: "Canvas, Shiki, FFmpeg WASM",
       description:
         "A code animation studio that turns code snippets into cinematic videos entirely in the browser.",
+      stars: "20",
     },
     {
       name: "Mellow fmt",
@@ -136,6 +140,7 @@ export const initialData: CvData = {
       stack: "Tanstack Start, formatting tool",
       description:
         "An interactive playground for exploring and comparing Prettier and Oxfmt formatting options.",
+      stars: "3",
     },
     {
       name: "Alex Posts",
@@ -143,6 +148,7 @@ export const initialData: CvData = {
       stack: "Technical writing",
       description:
         "A technical blog with deep dives into database internals, React mechanics, and JavaScript tooling.",
+      stars: "",
     },
   ],
   education:

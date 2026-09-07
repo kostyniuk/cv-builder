@@ -44,7 +44,8 @@ Data structure:
       "name": "Project name",
       "url": "https://project-url.com",
       "stack": "Main tools, technologies, or domain",
-      "description": "One short impact-focused description."
+      "description": "One short impact-focused description.",
+      "stars": "GitHub star count as a plain number, or empty string when unknown"
     }
   ],
   "education": "Institution\\nProgram or degree\\nDates or notes",
@@ -70,7 +71,7 @@ Field guidance:
 - about: Use only if it adds memorable signal. It can include interests, collaboration style, side interests, or personal context.
 - socialLinks: Include only links that are present or strongly implied. Prefer LinkedIn, GitHub, portfolio, X/Twitter, personal site.
 - experience: Put newest roles first. Merge weak or very old roles if needed. Keep 2-4 bullets per role. Prefer measurable achievements and concrete scope. Preserve original company names, titles, dates, and strong source bullets when they already fit; trim before rewriting.
-- projects: Include 0-4 strongest projects. Prefer shipped, inspectable, or technically distinctive projects. Preserve original project names, URLs, stacks, and descriptions when they are clear enough.
+- projects: Include 0-4 strongest projects. Prefer shipped, inspectable, or technically distinctive projects. Preserve original project names, URLs, stacks, descriptions, and star counts when they are clear enough. Never invent a star count: leave "stars" empty unless the source explicitly states one.
 - education: Preserve exact institution and degree when available.
 - awards: Leave empty and set sections.awards to false if no awards exist.
 - skills: Group skills by category. Keep it scannable. Preserve original skill names and technology names exactly when available.

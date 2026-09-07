@@ -1,3 +1,5 @@
+import { Star } from "lucide-react"
+
 import type { ProjectItem } from "@/lib/cv"
 import { normalizeUrl } from "@/lib/url"
 
@@ -21,7 +23,7 @@ export function ProjectsSection({ projects }: { projects: ProjectItem[] }) {
               {String(index + 1).padStart(2, "0")}
             </span>
             <div className="font-mono text-[11px] leading-tight uppercase">
-              <p className="font-bold">
+              <p className="flex flex-wrap items-center gap-1.5 font-bold">
                 {project.url.trim() ? (
                   <a
                     href={normalizeUrl(project.url)}
@@ -34,6 +36,12 @@ export function ProjectsSection({ projects }: { projects: ProjectItem[] }) {
                 ) : (
                   project.name
                 )}
+                {project.stars.trim() ? (
+                  <span className="inline-flex items-center gap-0.5 border border-[#b8860b]/45 bg-[#f5c518]/15 px-1 text-[9px] leading-[1.4] font-normal text-[#8a6508]">
+                    <Star className="size-2 fill-[#e3a008] text-[#e3a008]" strokeWidth={0} />
+                    {project.stars.trim()}
+                  </span>
+                ) : null}
               </p>
               <p>{project.stack}</p>
             </div>
