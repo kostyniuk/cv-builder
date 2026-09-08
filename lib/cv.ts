@@ -1,22 +1,22 @@
 export type ExperienceItem = {
-  company: string;
-  title: string;
-  date: string;
-  bullets: string;
-};
+  company: string
+  title: string
+  date: string
+  bullets: string
+}
 
 export type ProjectItem = {
-  name: string;
-  url: string;
-  stack: string;
-  description: string;
-  stars: string;
-};
+  name: string
+  url: string
+  stack: string
+  description: string
+  stars: string
+}
 
 export type SocialLink = {
-  label: string;
-  url: string;
-};
+  label: string
+  url: string
+}
 
 export type SectionKey =
   | "about"
@@ -25,41 +25,41 @@ export type SectionKey =
   | "inspirations"
   | "education"
   | "portfolio"
-  | "skills";
+  | "skills"
 
-export const backgroundLogoSizes = ["sm", "md", "lg", "xl", "2xl"] as const;
+export const backgroundLogoSizes = ["sm", "md", "lg", "xl", "2xl"] as const
 
-export type BackgroundLogoSize = (typeof backgroundLogoSizes)[number];
+export type BackgroundLogoSize = (typeof backgroundLogoSizes)[number]
 
 export type CvData = {
-  name: string;
-  nameFontSize: string;
-  role: string;
-  email: string;
-  phone: string;
-  location: string;
-  website: string;
-  summary: string;
-  about: string;
-  socialLinks: SocialLink[];
-  experience: ExperienceItem[];
-  projects: ProjectItem[];
-  education: string;
-  awards: string;
-  skills: string;
-  taste: string;
-  inspirations: string;
-  backgroundSvg: string;
-  backgroundLogoSize: BackgroundLogoSize;
-  sections: Record<SectionKey, boolean>;
-};
+  name: string
+  nameFontSize: string
+  role: string
+  email: string
+  phone: string
+  location: string
+  website: string
+  summary: string
+  about: string
+  socialLinks: SocialLink[]
+  experience: ExperienceItem[]
+  projects: ProjectItem[]
+  education: string
+  awards: string
+  skills: string
+  taste: string
+  inspirations: string
+  backgroundSvg: string
+  backgroundLogoSize: BackgroundLogoSize
+  sections: Record<SectionKey, boolean>
+}
 
 export const blankExperience: ExperienceItem = {
   company: "New Company",
   title: "Role title",
   date: "2026 - Present",
   bullets: "Describe one measurable contribution.",
-};
+}
 
 export const blankProject: ProjectItem = {
   name: "New Project",
@@ -67,7 +67,7 @@ export const blankProject: ProjectItem = {
   stack: "Tools, stack",
   description: "Short impact-focused project description.",
   stars: "",
-};
+}
 
 export const initialData: CvData = {
   name: "Alex Kostyniuk",
@@ -78,7 +78,7 @@ export const initialData: CvData = {
   location: "Stockholm, Sweden",
   website: "a13x.space",
   summary:
-    "Software Engineer focused on solving customer problems. I love helping people and work in teams when we can achieve big goals together. Really like Agentic Workflows with AI. Love to build great architectures. When I was a teen, I thought that I would be a backend engineer because frontend is easy and not interesting, now I enjoy both, but frontend is ♥︎. I'm also active on tech side of Twitter if you like my tweets we can be friends 😅.",
+    "Software Engineer focused on solving customer problems. Six years at AMFG, from Junior to Team Lead, building the automation, scheduling, and integration surfaces behind a platform used by 100+ manufacturers and machine shops. I love helping people and work in teams when we can achieve big goals together. Really like Agentic Workflows with AI and building great architectures. When I was a teen, I thought that I would be a backend engineer because frontend is easy and not interesting, now I enjoy both, but frontend is ♥︎. I'm also active on tech side of Twitter if you like my tweets we can be friends 😅.",
   about:
     "I like to create beautiful UIs, like to dress well, and like NBA and football. I'm a big dog lover - have one myself, named Theo. I used to run and a lot, and had run a half-marathon back in the day. I love rap festivals, I was at Rolling Loud and others, saw Travis Scott, Playboi Carti and some more, planning on visiting more. Trying to be happy and make people around me happy too.",
   socialLinks: [
@@ -93,28 +93,14 @@ export const initialData: CvData = {
       title: "Team Lead",
       date: "May 2025 - Present",
       bullets:
-        "Cut CI test time 5x, from 20 min to 4, by optimizing how tests work with the database.\nLeading architecture and delivery across frontend modernization, backend platform work, performance improvements, and team-wide developer experience initiatives while managing a team of 3 engineers.\nLed migration from Kendo to shadcn/ui and Tailwind CSS, improving iteration speed & developer experience.\nBuilt a 3D model similarity engine using cosine similarity, vector embeddings, and pgvector in PostgreSQL.\nImplemented MCP/Public API for users to be able to do actions outside of AMFG application",
+        "Leading architecture across frontend, backend, and performance for a product built by 15+ engineers, and directly managing a team of 4.\n3D model similarity search: designed and built the engine that surfaces previously quoted models with similar geometry, after estimators flagged manual geometry analysis as a top time sink - cut an estimate from 15-20 minutes to about a minute; embeddings indexed with pgvector, tuned for recall vs latency.\nPublic API and MCP server: shipped the integration surface that lets customers and their AI agents drive AMFG workflows programmatically, replacing in-app data export - scoped the first endpoints with customers directly, then expanded the API release by release as their integrations grew.\nFrontend replatform: led the Kendo to shadcn/ui and Tailwind CSS migration component by component so releases never froze, trading a rigid third-party library for primitives we own and iterate on freely.\nCI pipeline: cut test suite runtime 5x, 20 min to 4, by reworking how tests provision and isolate database state - the bottleneck was per-test setup, not the tests.\nTooling: replaced Prettier with oxfmt and ESLint with oxlint, cutting format and lint in CI 30x.",
     },
     {
       company: "AMFG",
-      title: "Senior Fullstack Software Engineer",
-      date: "May 2023 - April 2025",
+      title: "Fullstack Software Engineer (Junior to Senior)",
+      date: "October 2020 - April 2025",
       bullets:
-        "Led team-wide adoption of AI-assisted engineering workflows, frontend modernization.\nDeveloped a sandboxed scripting environment for customer Python and JavaScript action automations.\nConducted 50+ engineering interviews and helped shape team growth and hiring standards.",
-    },
-    {
-      company: "AMFG",
-      title: "Middle Fullstack Software Engineer",
-      date: "December 2021 - May 2023",
-      bullets:
-        "Built a custom Gantt timeline with drag-and-drop task management, zoom levels, real-time sync, and conflict detection.\nWorked on a large workflow automation system supporting event triggers and 10+ follow-up actions across email, push, and status changes.",
-    },
-    {
-      company: "AMFG",
-      title: "Junior Fullstack Software Engineer",
-      date: "October 2020 - November 2021",
-      bullets:
-        "Adjusting to full-time engineering work while balancing university and building communication skills.",
+        "Customer scripting runtime: built the sandboxed environment running customer-authored Python and JavaScript, solving isolation and resource limits for untrusted multi-tenant code - unlocked chained sequences of 10+ actions the fixed trigger system could not express.\nWorkflow automation: built the event-trigger system supporting 10+ follow-up action types across email, push, and status changes, generalising recurring customer requests into rules they configure themselves.\nScheduling Gantt: built the custom drag-and-drop timeline that schedules 10,000+ builds a month as most customers' primary production tool, replacing manual scheduling - the hard part was reconciling concurrent edits from multiple planners without losing work.\nDrove team-wide adoption of AI-assisted workflows and ran 50+ interviews shaping hiring standards.",
     },
   ],
   projects: [
@@ -156,9 +142,10 @@ export const initialData: CvData = {
   awards: "",
   skills:
     "Languages: TypeScript, JavaScript, SQL\nFrontend: React, all TanStack, Next.js, Tailwind CSS, shadcn/ui\nBackend: Node.js, Bun, PostgreSQL, MySQL, Redis\nTooling: oxc, Vite, Vitest",
-  taste: "TypeScript, Next.js, Bun, Vercel, TanStack, Drizzle, shadcn, OpenAI, T3 Code",
+  taste:
+    "TypeScript, Next.js, Bun, Vercel, TanStack, Drizzle, shadcn, OpenAI, T3 Code",
   inspirations:
-    "Theo\nTanner Linsley\nGuillermo Rauch\nLee Robinson\nRyo Lu\nPauline P. Narvas\nOrcDev\nshadcn\nOpenAI\nCursor\nVercel\nPlanetscale\nLovable",
+    "Theo\nTanner Linsley\nGuillermo Rauch\nLee Robinson\nRyo Lu\nPauline P. Narvas\nshadcn\nOpenAI\nSpaceX\nLovable",
   backgroundSvg: "",
   backgroundLogoSize: "md",
   sections: {
@@ -170,7 +157,7 @@ export const initialData: CvData = {
     portfolio: true,
     skills: true,
   },
-};
+}
 
 export const sectionLabels: Record<SectionKey, string> = {
   about: "Additional Info",
@@ -180,35 +167,43 @@ export const sectionLabels: Record<SectionKey, string> = {
   education: "Education",
   portfolio: "QR",
   skills: "Skills",
-};
+}
 
 export function lines(value: string) {
   return value
     .split("\n")
     .map((line) => line.trim())
-    .filter(Boolean);
+    .filter(Boolean)
 }
 
 export function parseNameFontSize(value: string) {
-  const parsed = Number.parseFloat(value);
-  return Number.isFinite(parsed) ? parsed : 2.85;
+  const parsed = Number.parseFloat(value)
+  return Number.isFinite(parsed) ? parsed : 2.85
 }
 
 export function socialBadge(label: string, url: string) {
-  const source = `${label} ${url}`.toLowerCase();
+  const source = `${label} ${url}`.toLowerCase()
 
   if (source.includes("linkedin")) {
-    return "in";
+    return "in"
   }
 
-  if (source.includes("github") || source.includes("gitlab") || source.includes("bitbucket")) {
-    return "gh";
+  if (
+    source.includes("github") ||
+    source.includes("gitlab") ||
+    source.includes("bitbucket")
+  ) {
+    return "gh"
   }
 
-  if (source.includes("twitter") || source.includes("x.com") || source.includes("x /")) {
-    return "x";
+  if (
+    source.includes("twitter") ||
+    source.includes("x.com") ||
+    source.includes("x /")
+  ) {
+    return "x"
   }
 
-  const compact = label.replace(/[^a-z0-9]/gi, "").slice(0, 2);
-  return compact ? compact.toLowerCase() : "ln";
+  const compact = label.replace(/[^a-z0-9]/gi, "").slice(0, 2)
+  return compact ? compact.toLowerCase() : "ln"
 }
